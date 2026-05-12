@@ -26,6 +26,12 @@ function switchToView(viewName) {
   if (viewName === "browse") {
     document.getElementById("browse-grid").innerHTML = HEXAGRAM_DATA.filter(Boolean).map(renderHexagramCard).join("");
   }
+  if (viewName === "fengshui") {
+    // Stop compass if running
+    if (compassWatchId) stopCompass();
+    // Initialize default tool
+    switchFSTool("compass");
+  }
 }
 
 // --- Cast View ---

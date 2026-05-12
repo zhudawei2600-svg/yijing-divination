@@ -465,6 +465,261 @@ body {
 .about-content p { margin-bottom: 8px; text-indent: 2em; }
 .error { text-align: center; padding: 20px; color: var(--red); font-size: 15px; }
 
+/* ============ FENG SHUI STYLES ============ */
+
+/* Sub-tabs */
+.fs-subtabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+  -webkit-overflow-scrolling: touch;
+  border-bottom: 1px solid var(--border-light);
+}
+.fs-subtab {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-family: var(--font-modern);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.fs-subtab.active {
+  background: var(--red);
+  color: #fff;
+  border-color: var(--red);
+}
+.fs-subtab:active { transform: scale(0.96); }
+
+.fs-panel { display: none; }
+.fs-panel.active { display: block; }
+
+.fs-section { max-width: 480px; margin: 0 auto; }
+.fs-section h3 {
+  font-family: var(--font-classical);
+  font-size: 18px;
+  color: var(--text);
+  margin-bottom: 8px;
+  text-align: center;
+}
+.fs-section h4 {
+  font-family: var(--font-classical);
+  font-size: 15px;
+  color: var(--text);
+  margin: 12px 0 8px;
+}
+.fs-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: 16px;
+}
+.fs-subsection {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-light);
+}
+
+/* Compass */
+.compass-container {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  margin: 0 auto 16px;
+}
+.compass-container canvas {
+  position: absolute;
+  top: 0; left: 0;
+}
+.compass-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+}
+.compass-degrees {
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--text);
+  font-family: var(--font-classical);
+}
+.compass-mountain {
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--red);
+  font-family: var(--font-classical);
+}
+.compass-element {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+.compass-trigram {
+  font-size: 24px;
+  color: var(--gold);
+  font-family: var(--font-classical);
+}
+.compass-info {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  border: 1px solid var(--border-light);
+}
+.compass-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  font-size: 14px;
+}
+.compass-row span:first-child { color: var(--text-muted); }
+.compass-row span:last-child { font-weight: 500; color: var(--text); }
+.compass-hint {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+.compass-note {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+
+/* Nine Palaces Grid */
+.palace-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.palace-cell {
+  background: var(--bg-card);
+  border-radius: 8px;
+  padding: 8px 6px;
+  text-align: center;
+  border: 1px solid var(--border-light);
+  font-size: 12px;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.palace-name { font-weight: bold; font-size: 13px; color: var(--text); }
+.palace-direction { font-size: 10px; color: var(--text-muted); margin-bottom: 2px; }
+.palace-star { font-size: 14px; font-weight: bold; margin: 2px 0; }
+.palace-quality { font-size: 12px; font-weight: bold; }
+.palace-auspicious { border-left: 3px solid #2D5016; background: #F0F7ED; }
+.palace-good { border-left: 3px solid #4A7C59; background: #F5FBF5; }
+.palace-neutral { border-left: 3px solid #D4C5B2; }
+.palace-bad { border-left: 3px solid #E8A840; background: #FFFDF5; }
+.palace-danger { border-left: 3px solid var(--red); background: #FFF5F5; }
+.palace-suggestion {
+  font-size: 10px;
+  color: var(--text-secondary);
+  margin-top: 3px;
+  line-height: 1.4;
+}
+
+/* Star Legend */
+.star-legend {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  margin-top: 8px;
+}
+.legend-item {
+  font-size: 11px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.legend-dot { font-size: 10px; }
+.dot-auspicious { color: #2D5016; }
+.dot-inauspicious { color: var(--red); }
+
+/* Calendar */
+.calendar-info {
+  background: var(--gold-light);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  line-height: 1.8;
+  border-left: 3px solid var(--gold);
+}
+.calendar-grid {
+  display: grid;
+  grid-template-columns: 40px 60px 1fr 1fr;
+  gap: 2px;
+  font-size: 13px;
+}
+.cal-header {
+  font-weight: bold;
+  font-size: 12px;
+  color: var(--text-muted);
+  padding: 4px;
+  text-align: center;
+}
+.cal-cell { padding: 6px 4px; text-align: center; border-bottom: 1px solid var(--border-light); font-size: 13px; }
+.cal-best { background: #F0F7ED; color: #2D5016; font-weight: bold; }
+.cal-good { background: #F5FBF5; color: #4A7C59; }
+.cal-bad { background: #FFF5F5; color: var(--red); }
+.cal-normal { color: var(--text-secondary); }
+
+/* Form inputs */
+.fs-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 15px;
+  font-family: var(--font-modern);
+  background: var(--bg-card);
+  color: var(--text);
+  outline: none;
+  margin-bottom: 12px;
+  -webkit-appearance: none;
+}
+.fs-input:focus { border-color: var(--gold); }
+.form-group { margin-bottom: 8px; }
+.form-group label { display: block; font-size: 13px; color: var(--text-secondary); margin-bottom: 4px; }
+
+/* Elements Grid */
+.elements-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.element-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  border: 1px solid var(--border-light);
+}
+.element-name { font-size: 16px; font-weight: bold; color: var(--text); font-family: var(--font-classical); }
+.element-colors { display: flex; align-items: center; gap: 6px; margin: 6px 0; font-size: 13px; color: var(--text-secondary); }
+.color-swatch { display: inline-block; width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--border); }
+.element-plants { font-size: 13px; color: var(--text-secondary); margin-top: 6px; }
+.plant-item {
+  background: var(--bg);
+  border-radius: 6px;
+  padding: 6px 10px;
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.plant-item strong { color: var(--text); }
+
 /* Responsive */
 @media (min-width: 600px) {
   .browse-grid { grid-template-columns: repeat(4, 1fr); }
@@ -530,6 +785,34 @@ body {
     <div id="history-list"></div>
   </div>
 
+  <!-- Feng Shui View -->
+  <div id="view-fengshui" class="view">
+    <!-- Sub-tabs -->
+    <div class="fs-subtabs">
+      <button class="fs-subtab active" data-tool="compass" onclick="switchFSTool('compass')">🧭 罗盘</button>
+      <button class="fs-subtab" data-tool="stars" onclick="switchFSTool('stars')">⭐ 九宫飞星</button>
+      <button class="fs-subtab" data-tool="calendar" onclick="switchFSTool('calendar')">📅 择日历</button>
+      <button class="fs-subtab" data-tool="elements" onclick="switchFSTool('elements')">🎨 五行配色</button>
+    </div>
+
+    <!-- Compass Panel -->
+    <div id="fs-panel-compass" class="fs-panel active">
+      <div id="fs-compass-display"></div>
+    </div>
+
+    <!-- Stars Panel -->
+    <div id="fs-panel-stars" class="fs-panel">
+    </div>
+
+    <!-- Calendar Panel -->
+    <div id="fs-panel-calendar" class="fs-panel">
+    </div>
+
+    <!-- Elements Panel -->
+    <div id="fs-panel-elements" class="fs-panel">
+    </div>
+  </div>
+
   <!-- About View -->
   <div id="view-about" class="view">
     <div class="about-content">
@@ -564,6 +847,9 @@ body {
   <button class="tab-btn" data-view="browse">
     <span class="tab-icon">📖</span><span class="tab-label">浏览</span>
   </button>
+  <button class="tab-btn" data-view="fengshui">
+    <span class="tab-icon">🧭</span><span class="tab-label">风水</span>
+  </button>
   <button class="tab-btn" data-view="history">
     <span class="tab-icon">📜</span><span class="tab-label">历史</span>
   </button>
@@ -579,6 +865,9 @@ body {
 <script src="src/js/04-storage.js"></script>
 <script src="src/js/05-renderer.js"></script>
 <script src="src/js/06-views.js"></script>
+<script src="src/js/07-fengshui-data.js"></script>
+<script src="src/js/08-fengshui-engine.js"></script>
+<script src="src/js/09-fengshui-views.js"></script>
 
 </body>
 </html>

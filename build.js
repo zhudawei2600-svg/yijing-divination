@@ -16,6 +16,9 @@ const jsFiles = [
   "04-storage.js",
   "05-renderer.js",
   "06-views.js",
+  "07-fengshui-data.js",
+  "08-fengshui-engine.js",
+  "09-fengshui-views.js",
 ];
 
 // Read and concatenate all JS source
