@@ -75,24 +75,70 @@ function castNextLine() {
   });
 }
 
-function animateCoins(callback) {
-  const container = document.getElementById("coin-animation");
-  container.innerHTML = `
-    <div class="coins-anim">
-      <div class="coin coin1">🪙</div>
-      <div class="coin coin2">🪙</div>
-      <div class="coin coin3">🪙</div>
+function render3DCoin(coinIdx, result) {
+  // result: 'heads' = 正面(阳=3), 'tails' = 反面(阴=2)
+  const isHeads = result === 'heads';
+  return `
+    <div class="coin-3d">
+      <div class="coin-inner spinning">
+        <div class="coin-face coin-front">
+          <div class="coin-face-text">
+            <span class="ct-corner ct-tl">正</span>
+            <span class="ct-corner ct-tr">面</span>
+            <span class="ct-corner ct-bl">阳</span>
+            <span class="ct-corner ct-br">☰</span>
+          </div>
+        </div>
+        <div class="coin-face coin-back">
+          <span class="coin-back-mark">⚋</span>
+        </div>
+      </div>
     </div>
   `;
-  // CSS animation handles the visual, callback after delay
+}
+
+function animateCoins(callback) {
+  const container = document.getElementById("coin-animation");
+
+  // Pre-determine all 3 coin results
+  const results = [];
+  for (let i = 0; i < 3; i++) {
+    results.push(Math.random() < 0.5 ? 'heads' : 'tails');
+  }
+
+  // Render spinning coins
+  container.innerHTML = '<div class="coins-anim">' +
+    results.map((r, i) => render3DCoin(i, r)).join('') +
+    '</div>';
+
+  // After 1.5s of spinning, settle each coin
   coinAnimationTimeout = setTimeout(() => {
-    const coins = container.querySelectorAll(".coin");
-    coins.forEach(c => {
-      c.textContent = Math.random() < 0.5 ? "⚊" : "⚋";
-      c.classList.add("coin-result");
+    const coins = container.querySelectorAll('.coin-inner');
+    coins.forEach((coin, i) => {
+      coin.classList.remove('spinning');
+      coin.classList.add(results[i] === 'heads' ? 'heads' : 'tails');
     });
-    setTimeout(callback, 500);
-  }, 1200);
+
+    // Show result labels below coins
+    const labels = results.map(r => {
+      const cls = r === 'heads' ? 'yang' : 'yin';
+      const label = r === 'heads' ? '正面·阳(3)' : '反面·阴(2)';
+      return '<div class="coin-result-label ' + cls + '">' + label + '</div>';
+    }).join('');
+
+    // Calculate sum
+    const sum = results.reduce((s, r) => s + (r === 'heads' ? 3 : 2), 0);
+    const lineNames = {6:'老阴 ⚋ (变爻)', 7:'少阳 ⚊', 8:'少阴 ⚋', 9:'老阳 ⚊ (变爻)'};
+    const isCh = sum === 6 || sum === 9;
+
+    container.innerHTML += '<div class="coin-results">' + labels + '</div>';
+    container.innerHTML += '<div class="coin-summary">' +
+      '<span>三枚之和 = ' + sum + '</span>' +
+      '<span class="line-type">' + lineNames[sum] + '</span>' +
+      '</div>';
+
+    setTimeout(callback, 600);
+  }, 1500);
 }
 
 function updateCastPreview() {
