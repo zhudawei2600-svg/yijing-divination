@@ -1,0 +1,2439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="周易占卜">
+<meta name="theme-color" content="#F5F0E8">
+<title>周易占卜</title>
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoi5ZGo5piT5Y2g5Y2DIiwic2hvcnRfbmFtZSI6IuWRqOaYkyIsInN0YXJ0X3VybCI6Ii4iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsInRoZW1lX2NvbG9yIjoiI0Y1RjBFOCIsImJhY2tncm91bmRfY29sb3IiOiIjRjVGMEU4IiwiaWNvbnMiOlt7InNyYyI6ImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjRiV3h1Y3owaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIaHRiRzV6T25oemNEMGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNVGs1T0M5emRtY2lJSE4wWVdSbFpXWnZjbUZrWkhNaU9qRWlQanh3WVhSb0lHUTlJazB5TURJeE5pNHdNUzB3TWkweU1DQTFPakkzT2pFM0xqQXhPU0VnTkRNdE1UTXVPREFnTnpjdE1UTXVNU0EwTnkweUxqWTJJRGcxTFRJdU5EUWdNak10T0M0MUlERXhMakUwTFRndU5TQXhNeTR5TVNBeU5EQXVPREVnTXpVdU5EUWdNVE11T1NBek9DNHhJREV5TGpBZ05ESXVPREVnTVRJdU1pQXhNam93TlRvZ0t6azFMakl4SURJME1TNDVOREF5SUVNMk9TNDVNaTAzTkM0d05TMDJMamcwTFRVdU9EWWdOeTQwTmkweExqUWdPQzR4TkMwMUxqY3lJRFF1TlRNdE9TNDVOU0EyTGprMExUZ3VPRGNnT1M0eU5DMHhNQzQyTmkwekxqSTFPU0F3TGpFMUlEQXVOUzQzSUMwMkxqUTBMREF0T1M0NU9TQXdJRGd1TVRRdE1UTXVORElnTVM0eU5DMHhOUzR4T0NBeExqZ3hMVFl1T1RRZ01TNDNOaTB4TGpVMUlERTFMaklnTXk0eU5pQXlNQzQyTVNBekxqSXhNQ0F6TGpFMklETXVNemdnTXk0Mk5DQXpMamswSURVdU1UZ2dOQzR3TkNBMExqazNJRGd1TlNBek1TNDFJREV1Tnk0eklETWdNQ0F4TURBZ05UTXVPQ0E1Tnk0eklEWTNMalVnTnpNdU1DQXdPVGd1TVNBek1qVXVNeUF3TVRRdU1pQTFNaTR4TlNBd01URXVNeUF4TlRFdU5DQXdNeTR3SUMweU5qVXVOeUF3TWpZdU1TQXhPVFl1TmlBd016a3VOQ0F4T0RJdU1pQXdOall1TmlBeE9UZ3VNeUF3TlRndU1TQXlNak11TlNBd05qa3VNQ0F5TkRZMUxqUWdNVEE0TGpFMUlESTBOaTQzU1QwdlptbHVaajQ4TDJ0bFBqd3ZaejQ9Iiwic2l6ZXMiOiIxOTJ4MTkyIiwidHlwZSI6ImltYWdlL3N2Zyt4bWwifV19">
+<style>
+:root {
+  --bg: #F5F0E8;
+  --bg-card: #FFFDF7;
+  --bg-accent: #FDF5E6;
+  --text: #2C1810;
+  --text-secondary: #6B5B4F;
+  --text-muted: #A09080;
+  --red: #C41E3A;
+  --red-light: #F9E4E8;
+  --gold: #8B6914;
+  --gold-light: #FEF9ED;
+  --green: #2D5016;
+  --border: #D4C5B2;
+  --border-light: #E8DED0;
+  --shadow: 0 2px 8px rgba(44, 24, 16, 0.08);
+  --radius: 10px;
+  --font-classical: "SimSun", "STSong", "FangSong", "KaiTi", "Noto Serif SC", serif;
+  --font-modern: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", "Helvetica Neue", sans-serif;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font-modern);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+.app-header {
+  text-align: center;
+  padding: 20px 16px 12px;
+  background: linear-gradient(180deg, #FFFDF7 0%, var(--bg) 100%);
+  border-bottom: 1px solid var(--border-light);
+}
+.app-title {
+  font-family: var(--font-classical);
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--text);
+  letter-spacing: 6px;
+}
+.app-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  letter-spacing: 2px;
+}
+.app-main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 16px 20px;
+  padding-bottom: calc(80px + var(--safe-bottom));
+  -webkit-overflow-scrolling: touch;
+}
+.view { display: none; }
+.view.active { display: block; }
+.tab-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  display: flex;
+  background: #FFFDF7;
+  border-top: 1px solid var(--border-light);
+  padding-bottom: var(--safe-bottom);
+  z-index: 100;
+  box-shadow: 0 -2px 8px rgba(44, 24, 16, 0.04);
+}
+.tab-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 4px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-family: var(--font-modern);
+  transition: color 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 52px;
+}
+.tab-btn.active { color: var(--red); }
+.tab-icon { font-size: 22px; margin-bottom: 2px; line-height: 1; }
+.tab-label { font-size: 11px; }
+
+/* Cast View */
+.cast-section { max-width: 420px; margin: 0 auto; }
+.question-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-family: var(--font-modern);
+  background: var(--bg-card);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+  margin-bottom: 16px;
+}
+.question-input:focus { border-color: var(--gold); }
+.question-input::placeholder { color: var(--text-muted); }
+.coin-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
+  margin: 8px 0 16px;
+}
+.coins-anim { display: flex; gap: 20px; align-items: center; }
+.coin {
+  font-size: 48px;
+  transition: transform 0.6s ease;
+  animation: coinFlip 0.6s ease-in-out infinite;
+}
+.coin.coin1 { animation-delay: 0s; }
+.coin.coin2 { animation-delay: 0.15s; }
+.coin.coin3 { animation-delay: 0.3s; }
+.coin.coin-result { animation: none; transform: scale(1.1); }
+@keyframes coinFlip {
+  0%, 100% { transform: rotateY(0deg); }
+  50% { transform: rotateY(180deg); }
+}
+
+/* Buttons */
+.cast-buttons { display: flex; gap: 12px; margin-bottom: 12px; }
+.cast-buttons button { flex: 1; }
+.btn-primary {
+  padding: 14px 20px;
+  background: var(--red);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-family: var(--font-modern);
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 48px;
+}
+.btn-primary:active { background: #A01830; }
+.btn-primary:disabled { background: #D4A0AA; cursor: not-allowed; }
+.btn-secondary {
+  padding: 14px 20px;
+  background: var(--bg-card);
+  color: var(--red);
+  border: 1px solid var(--red);
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-family: var(--font-modern);
+  cursor: pointer;
+  transition: background 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 48px;
+}
+.btn-secondary:active { background: var(--red-light); }
+.btn-secondary:disabled { color: #D4A0AA; border-color: #D4A0AA; cursor: not-allowed; }
+.btn-small {
+  padding: 6px 14px;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: var(--font-modern);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-small:active { background: var(--border-light); }
+.btn-danger { color: var(--red); border-color: var(--red); }
+.btn-reset {
+  padding: 8px 16px;
+  background: none;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: var(--font-modern);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  margin-top: 8px;
+}
+
+/* Cast Progress & Preview */
+.cast-progress { text-align: center; font-size: 13px; color: var(--text-secondary); margin-bottom: 12px; min-height: 20px; }
+.cast-hex-preview {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 12px;
+  border: 1px solid var(--border-light);
+}
+.hex-placeholder { color: var(--text-muted); font-size: 14px; text-align: center; line-height: 1.8; }
+
+/* Hexagram Lines */
+.hexagram-container { display: flex; flex-direction: column; gap: 1px; width: 100%; max-width: 260px; margin: 0 auto; }
+.hex-line-row { display: flex; align-items: center; gap: 10px; margin: 3px 0; }
+.hex-line-label { width: 32px; font-size: 13px; color: var(--text-secondary); text-align: right; flex-shrink: 0; font-family: var(--font-classical); }
+.hex-line { flex: 1; height: 10px; border-radius: 3px; transition: all 0.3s ease; display: flex; gap: 8px; }
+.hex-line-yang { background: var(--text); }
+.hex-line-yin { background: transparent; }
+.yin-segment { flex: 1; height: 100%; background: var(--text); border-radius: 3px; }
+.hex-line-changing { box-shadow: 0 0 0 2px var(--red), 0 0 8px rgba(196, 30, 58, 0.2); }
+.hex-line-placeholder { background: var(--border-light); }
+.changing-dot { color: var(--red); font-size: 12px; flex-shrink: 0; }
+
+/* Result View */
+.result-view { max-width: 480px; margin: 0 auto; }
+.result-question {
+  text-align: center;
+  font-size: 16px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  padding: 12px;
+  background: var(--gold-light);
+  border-radius: var(--radius);
+  border-left: 3px solid var(--gold);
+}
+.result-hex-visual { background: var(--bg-card); border-radius: var(--radius); padding: 16px; margin-bottom: 16px; border: 1px solid var(--border-light); }
+.result-primary { text-align: center; margin-bottom: 16px; }
+.result-hex-title { font-size: 20px; font-weight: bold; color: var(--text); margin-bottom: 4px; font-family: var(--font-classical); }
+.result-hex-symbol { font-size: 48px; margin: 8px 0; color: var(--text); }
+.result-trigrams { font-size: 13px; color: var(--text-muted); }
+.result-section { background: var(--bg-card); border-radius: var(--radius); padding: 16px; margin-bottom: 12px; border: 1px solid var(--border-light); }
+.section-title {
+  font-size: 15px;
+  font-weight: bold;
+  color: var(--red);
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border-light);
+  font-family: var(--font-classical);
+}
+.classical-text { font-family: var(--font-classical); font-size: 16px; color: var(--text); line-height: 1.8; margin-bottom: 6px; }
+.modern-text { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+.interpretation-text { font-size: 14px; color: var(--text); line-height: 1.8; }
+.line-detail { padding: 10px 0; border-bottom: 1px dashed var(--border-light); }
+.line-detail:last-child { border-bottom: none; }
+.line-name { font-family: var(--font-classical); font-weight: bold; color: var(--text); margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+.changing-tag { font-family: var(--font-modern); font-size: 11px; background: var(--red); color: #fff; padding: 2px 8px; border-radius: 10px; }
+.changing-section { border-left: 3px solid var(--red); }
+.transformed-section { border-left: 3px solid var(--gold); background: var(--gold-light); }
+.result-actions { display: flex; gap: 12px; margin-top: 16px; }
+.result-actions button { flex: 1; }
+
+/* Browse View */
+.browse-search {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 15px;
+  font-family: var(--font-modern);
+  background: var(--bg-card);
+  color: var(--text);
+  outline: none;
+  margin-bottom: 16px;
+  transition: border-color 0.2s;
+}
+.browse-search:focus { border-color: var(--gold); }
+.browse-search::placeholder { color: var(--text-muted); }
+.browse-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 10px; }
+.hex-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 14px 8px;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid var(--border-light);
+  transition: all 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.hex-card:active { background: var(--red-light); border-color: var(--red); transform: scale(0.97); }
+.hex-card-number { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+.hex-card-symbol { font-size: 28px; margin-bottom: 4px; line-height: 1.2; }
+.hex-card-name { font-size: 16px; font-weight: bold; color: var(--text); font-family: var(--font-classical); }
+.hex-card-pinyin { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+/* Detail Modal */
+.detail-modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(44, 24, 16, 0.6);
+  z-index: 200;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.detail-modal.active { display: flex; align-items: flex-start; justify-content: center; padding: 40px 16px; }
+.detail-modal-content { background: var(--bg-card); border-radius: var(--radius); padding: 24px 20px; max-width: 480px; width: 100%; position: relative; box-shadow: 0 8px 32px rgba(44, 24, 16, 0.2); }
+.detail-close {
+  position: absolute;
+  top: 12px; right: 12px;
+  width: 36px; height: 36px;
+  border: none;
+  background: var(--border-light);
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+}
+.detail-close:active { background: var(--border); }
+.detail-modal-content h2 { font-family: var(--font-classical); font-size: 22px; text-align: center; margin-bottom: 8px; }
+.detail-symbol { font-size: 56px; text-align: center; margin-bottom: 4px; }
+.detail-trigrams { text-align: center; font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+.detail-section { margin-bottom: 16px; }
+.detail-section h3 { font-size: 15px; color: var(--red); margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid var(--border-light); font-family: var(--font-classical); }
+
+/* History View */
+.history-card { background: var(--bg-card); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 10px; border: 1px solid var(--border-light); }
+.history-date { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
+.history-question { font-size: 15px; color: var(--text); margin-bottom: 8px; font-weight: 500; }
+.history-hex-row { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; flex-wrap: wrap; }
+.history-arrow { color: var(--red); font-weight: bold; }
+.history-change-count { font-size: 12px; background: var(--red-light); color: var(--red); padding: 2px 8px; border-radius: 10px; }
+.history-no-change { font-size: 12px; color: var(--text-muted); }
+.history-actions { display: flex; gap: 8px; justify-content: flex-end; }
+
+/* Empty State */
+.empty-state { text-align: center; padding: 48px 20px; color: var(--text-muted); }
+.empty-icon { font-size: 48px; margin-bottom: 12px; }
+.empty-state div:not(.empty-icon) { font-size: 16px; margin-bottom: 4px; }
+.empty-hint { font-size: 13px !important; color: var(--text-muted); }
+
+/* About View */
+.about-content { max-width: 420px; margin: 0 auto; font-size: 14px; line-height: 1.8; color: var(--text-secondary); }
+.about-content h3 { color: var(--text); font-size: 17px; margin: 16px 0 8px; font-family: var(--font-classical); }
+.about-content p { margin-bottom: 8px; text-indent: 2em; }
+.error { text-align: center; padding: 20px; color: var(--red); font-size: 15px; }
+
+/* Responsive */
+@media (min-width: 600px) {
+  .browse-grid { grid-template-columns: repeat(4, 1fr); }
+  .app-main { padding: 16px 24px 20px; padding-bottom: calc(80px + var(--safe-bottom)); }
+}
+@media (min-width: 900px) {
+  .browse-grid { grid-template-columns: repeat(8, 1fr); }
+  .tab-bar { max-width: 500px; left: 50%; transform: translateX(-50%); border-radius: 16px 16px 0 0; }
+}
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="app-title">周 易 占 卜</div>
+  <div class="app-subtitle">— 三钱法 · 六十四卦 —</div>
+</header>
+
+<main class="app-main">
+
+  <!-- Cast View -->
+  <div id="view-cast" class="view active">
+    <div class="cast-section">
+      <input type="text" id="cast-question" class="question-input" placeholder="请默想你的问题，然后输入..." maxlength="100">
+      <div class="coin-area" id="coin-animation"></div>
+      <div class="cast-progress" id="cast-progress"></div>
+      <div class="cast-buttons">
+        <button id="btn-manual" class="btn-primary">掷六次</button>
+        <button id="btn-auto" class="btn-secondary">一键起卦</button>
+      </div>
+      <div style="text-align:center; margin-bottom:8px;">
+        <button id="btn-manual-cast" class="btn-primary" style="width:100%; display:none;">掷下一爻</button>
+      </div>
+      <button id="btn-reset-cast" class="btn-reset" style="display:none; width:100%;">重新起卦</button>
+      <div class="cast-hex-preview" id="cast-hex-preview">
+        <div class="hex-placeholder">默想问题，开始掷爻...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Result View -->
+  <div id="view-result" class="view">
+    <div class="result-view">
+      <div id="result-content"></div>
+      <div class="result-actions" id="result-actions" style="display:none;">
+        <button id="btn-save" class="btn-secondary">保存记录</button>
+        <button id="btn-cast-again" class="btn-primary">重新起卦</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Browse View -->
+  <div id="view-browse" class="view">
+    <input type="text" id="browse-search" class="browse-search" placeholder="搜索卦名、拼音、序号...">
+    <div class="browse-grid" id="browse-grid"></div>
+  </div>
+
+  <!-- History View -->
+  <div id="view-history" class="view">
+    <div style="display:flex; justify-content:flex-end; margin-bottom:12px;">
+      <button id="btn-clear-history" class="btn-small btn-danger">清空全部</button>
+    </div>
+    <div id="history-list"></div>
+  </div>
+
+  <!-- About View -->
+  <div id="view-about" class="view">
+    <div class="about-content">
+      <h3>关于周易</h3>
+      <p>《周易》又称《易经》，是中国最古老的经典之一，被誉为"群经之首，大道之源"。它以六十四卦为基础，通过阴阳变化来揭示事物发展的规律。</p>
+      <p>本软件使用传统的"三钱法"起卦，即通过抛掷三枚铜钱（每枚正面为阳=3，反面为阴=2，三枚之和为6/7/8/9）来确定每一爻，六爻组成一卦。概率分布为1:3:3:1，与传统三钱法完全一致。</p>
+      <h3>使用方法</h3>
+      <p>1. 静下心来，默想你要问的问题。</p>
+      <p>2. 点击"掷六次"逐爻手掷（体验传统仪式感），或点击"一键起卦"快速生成。</p>
+      <p>3. 查看卦象解读。如有变爻（老阴或老阳），会显示变卦（之卦）作为参考。</p>
+      <p>4. 可以保存结果到历史记录中，方便日后回顾。</p>
+      <h3>注意事项</h3>
+      <p>占卜是一个帮助思考的工具，而不是决定命运的神谕。卦象给出的启示需要结合你自己的实际情况来理解。保持敬畏之心，但不迷信。</p>
+      <p>同一问题不要反复占卜。初次占卜得到的结果最有参考价值。</p>
+      <h3>隐私说明</h3>
+      <p>所有数据（包括占卜历史和你输入的问题）都保存在你手机本地，不会上传到任何服务器。清除浏览器数据时会一并删除。</p>
+    </div>
+  </div>
+
+</main>
+
+<!-- Detail Modal -->
+<div id="detail-modal" class="detail-modal">
+  <div id="detail-modal-body"></div>
+</div>
+
+<!-- Tab Bar -->
+<nav class="tab-bar">
+  <button class="tab-btn active" data-view="cast">
+    <span class="tab-icon">䷀</span><span class="tab-label">起卦</span>
+  </button>
+  <button class="tab-btn" data-view="browse">
+    <span class="tab-icon">📖</span><span class="tab-label">浏览</span>
+  </button>
+  <button class="tab-btn" data-view="history">
+    <span class="tab-icon">📜</span><span class="tab-label">历史</span>
+  </button>
+  <button class="tab-btn" data-view="about">
+    <span class="tab-icon">ℹ️</span><span class="tab-label">关于</span>
+  </button>
+</nav>
+
+<script>
+// ============================================================
+// SECTION: HEXAGRAM DATA — 64 卦完整数据
+// ============================================================
+// 文王卦序 1-64，每条包含：卦名、拼音、上下卦、二进制值、卦辞、爻辞、白话翻译
+
+const TRIGRAMS = {
+  qian: { name:"乾", symbol:"☰", attr:"天", value:7 },
+  dui:  { name:"兑", symbol:"☱", attr:"泽", value:6 },
+  li:   { name:"离", symbol:"☲", attr:"火", value:5 },
+  zhen: { name:"震", symbol:"☳", attr:"雷", value:4 },
+  xun:  { name:"巽", symbol:"☴", attr:"风", value:3 },
+  kan:  { name:"坎", symbol:"☵", attr:"水", value:2 },
+  gen:  { name:"艮", symbol:"☶", attr:"山", value:1 },
+  kun:  { name:"坤", symbol:"☷", attr:"地", value:0 }
+};
+
+function trigramByValue(v) {
+  for (const t of Object.values(TRIGRAMS)) { if (t.value === v) return t; }
+  return null;
+}
+
+// 爻的阴阳名称：yang=true用"九"，yang=false用"六"
+function lineLabel(pos, isYang) {
+  const y = isYang ? "九" : "六";
+  if (pos === 0) return "初" + y;
+  if (pos === 5) return "上" + y;
+  return y + ["二","三","四","五"][pos - 1];
+}
+
+const HEXAGRAM_DATA = [null]; // 0-index unused, use King Wen 1-64
+
+// --- 1. 乾 (qián) — 乾上乾下 ---
+HEXAGRAM_DATA[1] = {
+  kingWen:1, nameZh:"乾", namePinyin:"qián",
+  upperTrigram: TRIGRAMS.qian, lowerTrigram: TRIGRAMS.qian,
+  binaryValue: 0b111111,
+  judgment:"元亨利贞。",
+  judgmentModern:"大为亨通，利于守正。",
+  interpretation:"乾卦六爻皆阳，象征纯阳之体、天道刚健。代表创始、进取、自强不息的精神。得此卦者，宜主动进取，坚守正道，不可半途而废。但需注意刚极易折，高处不胜寒，成功之后更要谦虚谨慎。",
+  lines:[
+    {name:"初九", text:"潜龙勿用。", textModern:"龙还潜伏在地下，不宜急于施展才能。时机未到，先韬光养晦。"},
+    {name:"九二", text:"见龙在田，利见大人。", textModern:"龙出现在田野上，利于拜见有德行的贵人。可以开始展现自己了。"},
+    {name:"九三", text:"君子终日乾乾，夕惕若厉，无咎。", textModern:"君子整天勤奋不懈，晚上也保持警惕，虽处险境也没有灾祸。"},
+    {name:"九四", text:"或跃在渊，无咎。", textModern:"龙有时跳跃于深渊之中，审时度势，没有过错。进退自如，把握时机。"},
+    {name:"九五", text:"飞龙在天，利见大人。", textModern:"龙飞翔在天空中，利于拜见贵人。这是最好的位置，大展宏图。"},
+    {name:"上九", text:"亢龙有悔。", textModern:"龙飞得太高了，必将后悔。盛极必衰，不可太过，要懂得收敛。"}
+  ]
+};
+
+// --- 2. 坤 (kūn) — 坤上坤下 ---
+HEXAGRAM_DATA[2] = {
+  kingWen:2, nameZh:"坤", namePinyin:"kūn",
+  upperTrigram: TRIGRAMS.kun, lowerTrigram: TRIGRAMS.kun,
+  binaryValue: 0b000000,
+  judgment:"元亨，利牝马之贞。君子有攸往，先迷后得主，利。西南得朋，东北丧朋。安贞吉。",
+  judgmentModern:"大为亨通，利于像母马那样柔顺守正。君子有所前往，开始会迷惘，后来会找到方向。西南得到朋友，东北失去朋友。安守正道则吉。",
+  interpretation:"坤卦六爻皆阴，象征纯阴之体、大地厚德。代表柔顺、包容、承载、滋养的精神。得此卦者，宜顺势而为、以柔克刚，不宜主动出击。要有耐心和韧性，像大地一样承载万物。",
+  lines:[
+    {name:"初六", text:"履霜，坚冰至。", textModern:"踩到霜，就知道坚冰即将到来。见微知著，从小迹象预判大事。"},
+    {name:"六二", text:"直方大，不习无不利。", textModern:"正直、方正、广大，不用刻意学习也没有不利。顺其自然即好。"},
+    {name:"六三", text:"含章可贞，或从王事，无成有终。", textModern:"怀藏才华而能守正，辅佐君王做事，不求功劳但求善终。"},
+    {name:"六四", text:"括囊，无咎无誉。", textModern:"扎紧口袋，谨慎缄默。没有过错也没有赞誉。谨言慎行的时候。"},
+    {name:"六五", text:"黄裳，元吉。", textModern:"穿着黄色的裙子，大吉大利。谦逊柔美，处于高位而不张扬。"},
+    {name:"上六", text:"龙战于野，其血玄黄。", textModern:"龙在田野上搏斗，流出青黄相杂的血。阴极阳生，柔极则争。"}
+  ]
+};
+
+// --- 3. 屯 (zhūn) — 坎上震下 ---
+HEXAGRAM_DATA[3] = {
+  kingWen:3, nameZh:"屯", namePinyin:"zhūn",
+  upperTrigram: TRIGRAMS.kan, lowerTrigram: TRIGRAMS.zhen,
+  binaryValue: 0b100010,
+  judgment:"元亨利贞。勿用有攸往。利建侯。",
+  judgmentModern:"亨通，利于守正。不宜轻举妄动。利于建立基业。",
+  interpretation:"屯卦象征万物初生、创业维艰。上坎为险，下震为动，动于险中，正是创业艰难之象。得此卦者，事业刚起步，困难重重，但只要坚守正道、耐心经营，最终能成。",
+  lines:[
+    {name:"初九", text:"磐桓，利居贞，利建侯。", textModern:"徘徊不前，宜安守正道，利于建立根基。"},
+    {name:"六二", text:"屯如邅如，乘马班如。匪寇婚媾，女子贞不字，十年乃字。", textModern:"困难重重，骑马盘旋不进。不是盗寇而是来求婚的，女子守贞不嫁，十年后才出嫁。"},
+    {name:"六三", text:"即鹿无虞，惟入于林中，君子几不如舍，往吝。", textModern:"追鹿却没有虞人引导，只会迷入林中。君子见机行事，不如放弃，前往会有遗憾。"},
+    {name:"六四", text:"乘马班如，求婚媾，往吉，无不利。", textModern:"骑马盘旋，主动去求婚，前往则吉，没有不利。"},
+    {name:"九五", text:"屯其膏，小贞吉，大贞凶。", textModern:"囤积膏泽，小事守正吉，大事守正反凶。量力而行。"},
+    {name:"上六", text:"乘马班如，泣血涟如。", textModern:"骑马盘旋不进，哭得血泪涟涟。穷途末路，需回头是岸。"}
+  ]
+};
+
+// --- 4. 蒙 (méng) — 艮上坎下 ---
+HEXAGRAM_DATA[4] = {
+  kingWen:4, nameZh:"蒙", namePinyin:"méng",
+  upperTrigram: TRIGRAMS.gen, lowerTrigram: TRIGRAMS.kan,
+  binaryValue: 0b010001,
+  judgment:"亨。匪我求童蒙，童蒙求我。初筮告，再三渎，渎则不告。利贞。",
+  judgmentModern:"亨通。不是我去求幼童，是幼童来求教于我。初次占筮告诉他，再三占筮就是亵渎，亵渎就不告诉他。利于守正。",
+  interpretation:"蒙卦象征蒙昧、启蒙、教育。上艮为山，下坎为水，山下出泉，如同蒙童初开。得此卦者，表示需要虚心学习、接受教导。教育之道在于主动求教，而非被动灌输。",
+  lines:[
+    {name:"初六", text:"发蒙，利用刑人，用说桎梏，以往吝。", textModern:"启发蒙昧，宜于树立典型规范，让人摆脱枷锁束缚。但操之过急反而不利。"},
+    {name:"九二", text:"包蒙，吉。纳妇，吉。子克家。", textModern:"包容蒙昧，吉祥。娶妻吉祥。儿子能持家。以宽容心教化他人。"},
+    {name:"六三", text:"勿用取女，见金夫，不有躬，无攸利。", textModern:"不要娶这个女子，她见了有钱的男人就失去自我，没有好处。要守住本心。"},
+    {name:"六四", text:"困蒙，吝。", textModern:"困在蒙昧之中，遗憾。远离明师，独自迷茫。"},
+    {name:"六五", text:"童蒙，吉。", textModern:"像孩童一样虚心求教，吉祥。保持赤子之心。"},
+    {name:"上九", text:"击蒙，不利为寇，利御寇。", textModern:"以严厉手段启蒙，不宜主动攻击别人，宜于防御。教育要严格但有度。"}
+  ]
+};
+
+// --- 5. 需 (xū) — 坎上乾下 ---
+HEXAGRAM_DATA[5] = {
+  kingWen:5, nameZh:"需", namePinyin:"xū",
+  upperTrigram: TRIGRAMS.kan, lowerTrigram: TRIGRAMS.qian,
+  binaryValue: 0b111010,
+  judgment:"有孚，光亨，贞吉，利涉大川。",
+  judgmentModern:"心怀诚信，光明亨通，守正则吉，利于渡过大河。",
+  interpretation:"需卦象征等待。上坎为水为险，下乾为天为健，刚健者遇险在前，不可冒进，需要等待时机。得此卦者，时机未到，需要耐心等待，保持诚信和信念。",
+  lines:[
+    {name:"初九", text:"需于郊，利用恒，无咎。", textModern:"在郊外等待，宜于保持恒心，没有过错。"},
+    {name:"九二", text:"需于沙，小有言，终吉。", textModern:"在沙滩上等待，虽有些闲言碎语，最终吉祥。"},
+    {name:"九三", text:"需于泥，致寇至。", textModern:"在泥沼中等待，招来了盗寇。处境危险，要谨慎。"},
+    {name:"六四", text:"需于血，出自穴。", textModern:"在血泊中等待，终于从洞穴中逃出。险中求生。"},
+    {name:"九五", text:"需于酒食，贞吉。", textModern:"在酒食宴饮中等待，守正则吉。安闲自得。"},
+    {name:"上六", text:"入于穴，有不速之客三人来，敬之终吉。", textModern:"进入洞穴中，有三个不请自来的客人，尊敬他们则终吉。"}
+  ]
+};
+
+// --- 6. 讼 (sòng) — 乾上坎下 ---
+HEXAGRAM_DATA[6] = {
+  kingWen:6, nameZh:"讼", namePinyin:"sòng",
+  upperTrigram: TRIGRAMS.qian, lowerTrigram: TRIGRAMS.kan,
+  binaryValue: 0b010111,
+  judgment:"有孚窒惕，中吉，终凶。利见大人，不利涉大川。",
+  judgmentModern:"诚信被阻塞，要警惕，中间过程吉祥，但最终凶险。利于见贵人，不利于渡大河。",
+  interpretation:"讼卦象征争讼、官司。上乾为天，下坎为水，天水相违，意见不合。得此卦者，可能有争执纠纷，最好适可而止、见好就收，不宜纠缠到底。",
+  lines:[
+    {name:"初六", text:"不永所事，小有言，终吉。", textModern:"不要把争讼拖延太久，虽有些口舌是非，最终吉祥。"},
+    {name:"九二", text:"不克讼，归而逋，其邑人三百户，无眚。", textModern:"争讼失败，回去躲起来，他三百户的邑人没有灾难。"},
+    {name:"六三", text:"食旧德，贞厉，终吉。或从王事，无成。", textModern:"依靠旧有的德行生活，守正防危，终吉。若追随君王行事，没有成就。"},
+    {name:"九四", text:"不克讼，复即命，渝安贞，吉。", textModern:"争讼不胜，回头听从天命，改变态度安守正道，吉祥。"},
+    {name:"九五", text:"讼，元吉。", textModern:"裁决争讼，大吉。居于公正的裁判之位。"},
+    {name:"上九", text:"或锡之鞶带，终朝三褫之。", textModern:"即使被赐予大带官服，一天之内也会被三次剥夺。争来的荣誉不长久。"}
+  ]
+};
+
+// --- 7. 师 (shī) — 坤上坎下 ---
+HEXAGRAM_DATA[7] = {
+  kingWen:7, nameZh:"师", namePinyin:"shī",
+  upperTrigram: TRIGRAMS.kun, lowerTrigram: TRIGRAMS.kan,
+  binaryValue: 0b010000,
+  judgment:"贞，丈人吉，无咎。",
+  judgmentModern:"坚守正道，有德高望重的人统帅则吉，没有过错。",
+  interpretation:"师卦象征军队、战争。上坤为地，下坎为水，地中有水，藏兵于民。得此卦者，面临竞争或冲突，需要组织有序、纪律严明。也暗示需要一位有能力的领导者。",
+  lines:[
+    {name:"初六", text:"师出以律，否臧凶。", textModern:"军队出动必须有纪律，纪律不好则凶险。"},
+    {name:"九二", text:"在师中，吉无咎，王三锡命。", textModern:"在军旅之中，吉祥无过，君王三次赐命嘉奖。"},
+    {name:"六三", text:"师或舆尸，凶。", textModern:"军队可能载尸而归，凶险。指挥不当，损失惨重。"},
+    {name:"六四", text:"师左次，无咎。", textModern:"军队暂且退驻，没有过错。适时撤退是明智的。"},
+    {name:"六五", text:"田有禽，利执言，无咎。长子帅师，弟子舆尸，贞凶。", textModern:"田中有禽兽，利于发布命令。长子统率军队，次子载尸而归，守此则凶。"},
+    {name:"上六", text:"大君有命，开国承家，小人勿用。", textModern:"君王颁布命令，分封诸侯，不可任用小人。"}
+  ]
+};
+
+// --- 8. 比 (bǐ) — 坎上坤下 ---
+HEXAGRAM_DATA[8] = {
+  kingWen:8, nameZh:"比", namePinyin:"bǐ",
+  upperTrigram: TRIGRAMS.kan, lowerTrigram: TRIGRAMS.kun,
+  binaryValue: 0b000010,
+  judgment:"吉。原筮，元永贞，无咎。不宁方来，后夫凶。",
+  judgmentModern:"吉祥。再三占筮，开始永远守正，没有过错。不安宁的邦国前来归附，迟疑不来的人会有凶险。",
+  interpretation:"比卦象征亲附、团结。上坎为水，下坤为地，水在地上，亲密无间。得此卦者，人际关系良好，适合合作结盟，但要主动、真诚，不可迟疑。",
+  lines:[
+    {name:"初六", text:"有孚比之，无咎。有孚盈缶，终来有他吉。", textModern:"以诚信来亲近，没有过错。诚信像酒满罐一样，最终会有意外之喜。"},
+    {name:"六二", text:"比之自内，贞吉。", textModern:"发自内心地去亲近，守正则吉。"},
+    {name:"六三", text:"比之匪人。", textModern:"亲近了不该亲近的人。要慎重选择亲近的对象。"},
+    {name:"六四", text:"外比之，贞吉。", textModern:"亲近外面的贤者，守正则吉。"},
+    {name:"九五", text:"显比，王用三驱，失前禽。邑人不诫，吉。", textModern:"光明正大地亲附，君王围猎从三面驱赶，放走前面的禽兽。邑人不戒备，吉祥。"},
+    {name:"上六", text:"比之无首，凶。", textModern:"想亲附却没有首领，凶险。没有主心骨。"}
+  ]
+};
+
+// --- 9. 小畜 (xiǎo xù) — 巽上乾下 ---
+HEXAGRAM_DATA[9] = {
+  kingWen:9, nameZh:"小畜", namePinyin:"xiǎo xù",
+  upperTrigram: TRIGRAMS.xun, lowerTrigram: TRIGRAMS.qian,
+  binaryValue: 0b111110,
+  judgment:"亨。密云不雨，自我西郊。",
+  judgmentModern:"亨通。浓云密布却不降雨，云气从西边飘来。",
+  interpretation:"小畜卦象征小有积蓄、暂时阻滞。上巽为风，下乾为天，风行天上，未能成雨。得此卦者，事情在进行中但尚未完全成熟，需要再等待积累，小的阻碍很快会过去。",
+  lines:[
+    {name:"初九", text:"复自道，何其咎？吉。", textModern:"回到自己的道路上来，有什么过错呢？吉祥。"},
+    {name:"九二", text:"牵复，吉。", textModern:"被牵引回来，吉祥。顺势而回。"},
+    {name:"九三", text:"舆说辐，夫妻反目。", textModern:"车轮脱落，夫妻反目。内部出现裂痕。"},
+    {name:"六四", text:"有孚，血去惕出，无咎。", textModern:"有诚信，远离血光之灾，消除恐惧，没有过错。"},
+    {name:"九五", text:"有孚挛如，富以其邻。", textModern:"诚信紧密相连，与邻居共同致富。"},
+    {name:"上九", text:"既雨既处，尚德载。妇贞厉，月几望，君子征凶。", textModern:"已经下雨了，已经停下来了，积德可承载。妇人守正有危，月将满，君子出征有凶。"}
+  ]
+};
+
+// --- 10. 履 (lǚ) — 乾上兑下 ---
+HEXAGRAM_DATA[10] = {
+  kingWen:10, nameZh:"履", namePinyin:"lǚ",
+  upperTrigram: TRIGRAMS.qian, lowerTrigram: TRIGRAMS.dui,
+  binaryValue: 0b011111,
+  judgment:"履虎尾，不咥人，亨。",
+  judgmentModern:"踩着老虎尾巴，老虎却没有咬人，亨通。",
+  interpretation:"履卦象征实践、履行。上乾为天，下兑为泽，天在上泽在下，各安其位。得此卦者，如履虎尾，处境有些危险，但只要谨慎有礼、遵守规则，可以化险为夷。",
+  lines:[
+    {name:"初九", text:"素履，往无咎。", textModern:"穿着朴素的鞋子前往，没有过错。保持本真。"},
+    {name:"九二", text:"履道坦坦，幽人贞吉。", textModern:"走的路平平坦坦，隐士守正则吉。"},
+    {name:"六三", text:"眇能视，跛能履，履虎尾，咥人，凶。武人为于大君。", textModern:"一只眼偏要看，一只脚跛偏要走，踩到虎尾，老虎咬人，凶险。莽夫逞强。"},
+    {name:"九四", text:"履虎尾，愬愬，终吉。", textModern:"踩到老虎尾巴，小心谨慎恐惧，最终吉祥。"},
+    {name:"九五", text:"夬履，贞厉。", textModern:"决断而行，守正却有危险。刚决易失。"},
+    {name:"上九", text:"视履考祥，其旋元吉。", textModern:"回顾走过的路，考察吉凶，返回则大吉。"}
+  ]
+};
+
+// --- 11. 泰 (tài) — 坤上乾下 ---
+HEXAGRAM_DATA[11] = {
+  kingWen:11, nameZh:"泰", namePinyin:"tài",
+  upperTrigram: TRIGRAMS.kun, lowerTrigram: TRIGRAMS.qian,
+  binaryValue: 0b111000,
+  judgment:"小往大来，吉亨。",
+  judgmentModern:"小的去，大的来，吉祥亨通。",
+  interpretation:"泰卦象征通泰、安泰。上坤为地，下乾为天，地在天上，天地交泰，万物亨通。这是最吉祥的卦之一。得此卦者，时运亨通，事业顺利，上下和谐。但要居安思危。",
+  lines:[
+    {name:"初九", text:"拔茅茹，以其汇，征吉。", textModern:"拔茅草，连根带同类一起拔起，出征吉祥。顺势而为。"},
+    {name:"九二", text:"包荒，用冯河，不遐遗，朋亡，得尚于中行。", textModern:"包容荒远、徒步过河，不遗弃远方的人，不结党营私，崇尚中道。"},
+    {name:"九三", text:"无平不陂，无往不复，艰贞无咎。勿恤其孚，于食有福。", textModern:"没有一直平的路，没有只去不回的，艰难守正则无过。不用担心诚信，饮食有福。"},
+    {name:"六四", text:"翩翩不富，以其邻，不戒以孚。", textModern:"轻飘飘不富足，与邻居相处，不用戒备而以诚相待。"},
+    {name:"六五", text:"帝乙归妹，以祉元吉。", textModern:"帝乙嫁妹，以此得福，大吉。"},
+    {name:"上六", text:"城复于隍，勿用师，自邑告命，贞吝。", textModern:"城墙倒塌在干涸的护城河里，不可出兵，在自己的城邑中宣告命令，守正也有遗憾。"}
+  ]
+};
+
+// --- 12. 否 (pǐ) — 乾上坤下 ---
+HEXAGRAM_DATA[12] = {
+  kingWen:12, nameZh:"否", namePinyin:"pǐ",
+  upperTrigram: TRIGRAMS.qian, lowerTrigram: TRIGRAMS.kun,
+  binaryValue: 0b000111,
+  judgment:"否之匪人，不利君子贞。大往小来。",
+  judgmentModern:"阻塞不通，人道不正，不利于君子坚守。大的去，小的来。",
+  interpretation:"否卦象征闭塞、不通。上乾为天，下坤为地，天在上地在下，天地不交，万物不通。得此卦者，时运不佳，小人得势，君子受困。宜隐忍退守，不宜冒进。",
+  lines:[
+    {name:"初六", text:"拔茅茹，以其汇，贞吉亨。", textModern:"拔茅草连根带同类，守正则吉而亨通。"},
+    {name:"六二", text:"包承，小人吉，大人否，亨。", textModern:"包容承担，小人吉祥，大人受阻，但终究亨通。"},
+    {name:"六三", text:"包羞。", textModern:"容忍羞辱。忍辱负重。"},
+    {name:"九四", text:"有命无咎，畴离祉。", textModern:"有天命在，没有过错，众人同享福祉。"},
+    {name:"九五", text:"休否，大人吉。其亡其亡，系于苞桑。", textModern:"闭塞将停止，大人吉祥。时刻警惕灭亡，就像系在坚韧的桑树上一样。"},
+    {name:"上九", text:"倾否，先否后喜。", textModern:"倾覆闭塞之势，先有阻难后有欢喜。否极泰来。"}
+  ]
+};
+
+// --- 13. 同人 (tóng rén) — 乾上离下 ---
+HEXAGRAM_DATA[13] = {
+  kingWen:13, nameZh:"同人", namePinyin:"tóng rén",
+  upperTrigram: TRIGRAMS.qian, lowerTrigram: TRIGRAMS.li,
+  binaryValue: 0b101111,
+  judgment:"同人于野，亨。利涉大川，利君子贞。",
+  judgmentModern:"在旷野上会合众人，亨通。利于渡过大河，利于君子守正。",
+  interpretation:"同人卦象征团结、和同。上乾为天，下离为火，天火相映，光明同心。得此卦者，适合与人合作共事，集思广益。要以公心待人，去除私心。",
+  lines:[
+    {name:"初九", text:"同人于门，无咎。", textModern:"在门口聚集众人，没有过错。"},
+    {name:"六二", text:"同人于宗，吝。", textModern:"只在宗族内团聚，狭隘而有遗憾。"},
+    {name:"九三", text:"伏戎于莽，升其高陵，三岁不兴。", textModern:"埋伏军队在草丛中，登上高山观望，三年不出兵。"},
+    {name:"九四", text:"乘其墉，弗克攻，吉。", textModern:"登上城墙，却不能攻克，吉祥。知难而退。"},
+    {name:"九五", text:"同人先号咷而后笑，大师克相遇。", textModern:"会合的人先哭后笑，大军终于会师。先苦后甜。"},
+    {name:"上九", text:"同人于郊，无悔。", textModern:"在郊外会合众人，没有悔恨。"}
+  ]
+};
+
+// --- 14. 大有 (dà yǒu) — 离上乾下 ---
+HEXAGRAM_DATA[14] = {
+  kingWen:14, nameZh:"大有", namePinyin:"dà yǒu",
+  upperTrigram: TRIGRAMS.li, lowerTrigram: TRIGRAMS.qian,
+  binaryValue: 0b111101,
+  judgment:"元亨。",
+  judgmentModern:"大为亨通。",
+  interpretation:"大有卦象征大丰收、大富有。上离为火，下乾为天，火在天上，光耀四方。得此卦者，事业有成、财富丰足。但富有之后要懂得分享、谦虚守正，才能长久。",
+  lines:[
+    {name:"初九", text:"无交害，匪咎，艰则无咎。", textModern:"没有相互伤害，不是过错，经历艰难就没有过错。"},
+    {name:"九二", text:"大车以载，有攸往，无咎。", textModern:"用大车装载，前往某处，没有过错。"},
+    {name:"九三", text:"公用亨于天子，小人弗克。", textModern:"公侯向天子献礼，小人不能胜任。"},
+    {name:"九四", text:"匪其彭，无咎。", textModern:"不过分盛大，没有过错。不骄傲自满。"},
+    {name:"六五", text:"厥孚交如，威如，吉。", textModern:"诚信相交，又有威望，吉祥。"},
+    {name:"上九", text:"自天佑之，吉无不利。", textModern:"上天保佑，吉祥没有不利。"}
+  ]
+};
+
+// --- 15. 谦 (qiān) — 坤上艮下 ---
+HEXAGRAM_DATA[15] = {
+  kingWen:15, nameZh:"谦", namePinyin:"qiān",
+  upperTrigram: TRIGRAMS.kun, lowerTrigram: TRIGRAMS.gen,
+  binaryValue: 0b001000,
+  judgment:"亨，君子有终。",
+  judgmentModern:"亨通，君子有好的结局。",
+  interpretation:"谦卦象征谦虚。上坤为地，下艮为山，山在地下，高大者处于低下之位，正是谦虚之象。六爻皆吉，是六十四卦中唯一全吉的卦。得此卦者，以谦逊待人，万事可成。",
+  lines:[
+    {name:"初六", text:"谦谦君子，用涉大川，吉。", textModern:"非常谦虚的君子，以此渡过大河，吉祥。"},
+    {name:"六二", text:"鸣谦，贞吉。", textModern:"名声在外仍能谦虚，守正则吉。"},
+    {name:"九三", text:"劳谦君子，有终吉。", textModern:"勤劳而谦虚的君子，有好结局，吉祥。"},
+    {name:"六四", text:"无不利，撝谦。", textModern:"没有不利，发挥谦虚的美德。"},
+    {name:"六五", text:"不富以其邻，利用侵伐，无不利。", textModern:"不以财富骄邻，利于出兵征伐，没有不利。"},
+    {name:"上六", text:"鸣谦，利用行师，征邑国。", textModern:"谦虚之名远扬，利于出兵，征伐邑国。"}
+  ]
+};
+
+// --- 16. 豫 (yù) — 震上坤下 ---
+HEXAGRAM_DATA[16] = {
+  kingWen:16, nameZh:"豫", namePinyin:"yù",
+  upperTrigram: TRIGRAMS.zhen, lowerTrigram: TRIGRAMS.kun,
+  binaryValue: 0b000100,
+  judgment:"利建侯行师。",
+  judgmentModern:"利于建立诸侯，利于出兵。",
+  interpretation:"豫卦象征安乐、豫悦。上震为雷，下坤为地，雷出地上，万物欢欣。得此卦者，心情愉悦，但不要过度享乐。乐极生悲，要有所节制。",
+  lines:[
+    {name:"初六", text:"鸣豫，凶。", textModern:"得意洋洋到处炫耀，凶险。"},
+    {name:"六二", text:"介于石，不终日，贞吉。", textModern:"坚如磐石，不会终日沉浸享乐，守正则吉。"},
+    {name:"六三", text:"盱豫，悔。迟有悔。", textModern:"媚上求乐，后悔。迟疑不决更后悔。"},
+    {name:"九四", text:"由豫，大有得。勿疑，朋盍簪。", textModern:"安乐自有来由，大有所获。不要怀疑，朋友会聚在一起。"},
+    {name:"六五", text:"贞疾，恒不死。", textModern:"守正防病，长久不死。保持警惕可保平安。"},
+    {name:"上六", text:"冥豫，成有渝，无咎。", textModern:"昏暗中享乐，若能改变就没有过错。"}
+  ]
+};
+
+// --- 17. 随 (suí) — 兑上震下 ---
+HEXAGRAM_DATA[17] = {
+  kingWen:17, nameZh:"随", namePinyin:"suí",
+  upperTrigram: TRIGRAMS.dui, lowerTrigram: TRIGRAMS.zhen,
+  binaryValue: 0b100110,
+  judgment:"元亨利贞，无咎。",
+  judgmentModern:"大为亨通利于守正，没有过错。",
+  interpretation:"随卦象征随从、追随。上兑为泽，下震为雷，雷入泽中，随势而动。得此卦者，宜顺应时势、随遇而安，不可固执己见。选择正确的方向去跟随很重要。",
+  lines:[
+    {name:"初九", text:"官有渝，贞吉。出门交有功。", textModern:"官职有变动，守正则吉。出门与人交往会有成效。"},
+    {name:"六二", text:"系小子，失丈夫。", textModern:"抓住小的，却失去了大的。因小失大。"},
+    {name:"六三", text:"系丈夫，失小子。随有求得，利居贞。", textModern:"抓住大的，失去小的。追随有所求有所得，利于安守正道。"},
+    {name:"九四", text:"随有获，贞凶。有孚在道，以明，何咎？", textModern:"追随有所获，守正也有凶险。但心怀诚信走在正道上，明智行事，有何过错？"},
+    {name:"九五", text:"孚于嘉，吉。", textModern:"诚信于善美之中，吉祥。"},
+    {name:"上六", text:"拘系之，乃从维之。王用亨于西山。", textModern:"被拘系住，又被迫跟随。君王在西山祭祀。"}
+  ]
+};
+
+// --- 18. 蛊 (gǔ) — 艮上巽下 ---
+HEXAGRAM_DATA[18] = {
+  kingWen:18, nameZh:"蛊", namePinyin:"gǔ",
+  upperTrigram: TRIGRAMS.gen, lowerTrigram: TRIGRAMS.xun,
+  binaryValue: 0b110001,
+  judgment:"元亨，利涉大川。先甲三日，后甲三日。",
+  judgmentModern:"大为亨通，利于渡过大河。在甲日前三天开始，甲日后三天结束。",
+  interpretation:"蛊卦象征败坏、整治。上艮为山，下巽为风，风遇到山而受阻，事物腐坏。得此卦者，面临需要整治的烂摊子，是拨乱反正的时候。有破旧立新的机会。",
+  lines:[
+    {name:"初六", text:"干父之蛊，有子，考无咎，厉终吉。", textModern:"纠正父亲留下的弊病，有这样的儿子，先父没有过错，有危险但终吉。"},
+    {name:"九二", text:"干母之蛊，不可贞。", textModern:"纠正母亲的弊病，不可太过刚正。要柔和处理。"},
+    {name:"九三", text:"干父之蛊，小有悔，无大咎。", textModern:"纠正父亲的弊病，有点小后悔，没有大过错。"},
+    {name:"六四", text:"裕父之蛊，往见吝。", textModern:"宽容对待父亲的弊病，前往会有遗憾。"},
+    {name:"六五", text:"干父之蛊，用誉。", textModern:"纠正父亲的弊病，因而获得赞誉。"},
+    {name:"上九", text:"不事王侯，高尚其事。", textModern:"不侍奉王侯，以高尚的方式做自己的事。"}
+  ]
+};
+
+// --- 19. 临 (lín) — 坤上兑下 ---
+HEXAGRAM_DATA[19] = {
+  kingWen:19, nameZh:"临", namePinyin:"lín",
+  upperTrigram: TRIGRAMS.kun, lowerTrigram: TRIGRAMS.dui,
+  binaryValue: 0b011000,
+  judgment:"元亨利贞。至于八月有凶。",
+  judgmentModern:"大为亨通利于守正。但到了八月有凶险。",
+  interpretation:"临卦象征临下、管理。上坤为地，下兑为泽，地临泽上，居高临下。得此卦者，处于领导或监督的位置，要亲近下属、体察民情。好景不长久，要居安思危。",
+  lines:[
+    {name:"初九", text:"咸临，贞吉。", textModern:"以感化之道临民，守正则吉。"},
+    {name:"九二", text:"咸临，吉无不利。", textModern:"以感化之道临民，吉祥没有不利。"},
+    {name:"六三", text:"甘临，无攸利。既忧之，无咎。", textModern:"以甜言蜜语临民，没有好处。既然为此忧虑，就没有过错。"},
+    {name:"六四", text:"至临，无咎。", textModern:"亲自到场去临民，没有过错。"},
+    {name:"六五", text:"知临，大君之宜，吉。", textModern:"以智慧临民，是明君的适宜之道，吉祥。"},
+    {name:"上六", text:"敦临，吉无咎。", textModern:"以敦厚之道临民，吉祥没有过错。"}
+  ]
+};
+
+// --- 20. 观 (guān) — 巽上坤下 ---
+HEXAGRAM_DATA[20] = {
+  kingWen:20, nameZh:"观", namePinyin:"guān",
+  upperTrigram: TRIGRAMS.xun, lowerTrigram: TRIGRAMS.kun,
+  binaryValue: 0b000011,
+  judgment:"盥而不荐，有孚颙若。",
+  judgmentModern:"洗手后还没献祭，就已经充满诚敬之心了。",
+  interpretation:"观卦象征观察、观摩。上巽为风，下坤为地，风行地上，无处不到。得此卦者，需要仔细观察形势再做决定。也是被人观摩的对象，要做出表率。",
+  lines:[
+    {name:"初六", text:"童观，小人无咎，君子吝。", textModern:"像孩童一样粗浅地观察，小人没有过错，君子则有遗憾。"},
+    {name:"六二", text:"窥观，利女贞。", textModern:"从门缝中窥视，利于妇人守正。见识狭隘。"},
+    {name:"六三", text:"观我生，进退。", textModern:"观察自己的行为，决定进退。"},
+    {name:"六四", text:"观国之光，利用宾于王。", textModern:"观察国家的光辉，利于做君王的宾客。"},
+    {name:"九五", text:"观我生，君子无咎。", textModern:"观察自己的行为，君子没有过错。"},
+    {name:"上九", text:"观其生，君子无咎。", textModern:"观察他人的行为，君子没有过错。"}
+  ]
+};
+
+// --- 21. 噬嗑 (shì hé) — 离上震下 ---
+HEXAGRAM_DATA[21] = {
+  kingWen:21, nameZh:"噬嗑", namePinyin:"shì hé",
+  upperTrigram: TRIGRAMS.li, lowerTrigram: TRIGRAMS.zhen,
+  binaryValue: 0b100101,
+  judgment:"亨，利用狱。",
+  judgmentModern:"亨通，利于断案用刑。",
+  interpretation:"噬嗑卦象征咬合、断案。上离为火，下震为雷，雷电交加，明察秋毫。卦形像口中含物，咬碎则通。得此卦者，遇到障碍需要果断清除，法律诉讼之事有利。",
+  lines:[
+    {name:"初九", text:"屦校灭趾，无咎。", textModern:"脚上戴着刑具伤到了脚趾，没有大过错。小惩大诫。"},
+    {name:"六二", text:"噬肤灭鼻，无咎。", textModern:"咬破皮肤伤到了鼻子，没有大过错。"},
+    {name:"六三", text:"噬腊肉，遇毒。小吝，无咎。", textModern:"咬干肉，遇到毒素。有点小麻烦，没有大过错。"},
+    {name:"九四", text:"噬干胏，得金矢。利艰贞，吉。", textModern:"咬带骨头的干肉，得到铜箭。利于艰难守正，吉祥。"},
+    {name:"六五", text:"噬干肉，得黄金。贞厉，无咎。", textModern:"咬干肉，得到黄金。守正有危险，但没有过错。"},
+    {name:"上九", text:"何校灭耳，凶。", textModern:"肩上戴着刑具伤到耳朵，凶险。罪大恶极。"}
+  ]
+};
+
+// --- 22. 贲 (bì) — 艮上离下 ---
+HEXAGRAM_DATA[22] = {
+  kingWen:22, nameZh:"贲", namePinyin:"bì",
+  upperTrigram: TRIGRAMS.gen, lowerTrigram: TRIGRAMS.li,
+  binaryValue: 0b101001,
+  judgment:"亨。小利有攸往。",
+  judgmentModern:"亨通。有所前往有小利。",
+  interpretation:"贲卦象征文饰、美化。上艮为山，下离为火，山火相映，光彩照人。得此卦者，适合注重外表、包装和形式，但不可过度追求表面功夫，内在才是根本。",
+  lines:[
+    {name:"初九", text:"贲其趾，舍车而徒。", textModern:"装饰脚趾，舍弃车子步行。重实质不重排场。"},
+    {name:"六二", text:"贲其须。", textModern:"装饰胡须。适当修饰外在。"},
+    {name:"九三", text:"贲如濡如，永贞吉。", textModern:"装饰得光彩润泽，永远守正则吉。"},
+    {name:"六四", text:"贲如皤如，白马翰如，匪寇婚媾。", textModern:"素白淡雅，白马飞奔，不是盗寇而是来求婚配。"},
+    {name:"六五", text:"贲于丘园，束帛戋戋，吝，终吉。", textModern:"装饰山丘园林，用很少的布帛，虽有点寒酸，但终吉。"},
+    {name:"上九", text:"白贲，无咎。", textModern:"素白无华作为装饰，没有过错。返璞归真。"}
+  ]
+};
+
+// --- 23. 剥 (bō) — 艮上坤下 ---
+HEXAGRAM_DATA[23] = {
+  kingWen:23, nameZh:"剥", namePinyin:"bō",
+  upperTrigram: TRIGRAMS.gen, lowerTrigram: TRIGRAMS.kun,
+  binaryValue: 0b000001,
+  judgment:"不利有攸往。",
+  judgmentModern:"不利于有所前往。",
+  interpretation:"剥卦象征剥落、衰败。上艮为山，下坤为地，山高在上却将被剥落。五阴剥一阳，小人得势，君子被排斥。得此卦者，时运不济，宜顺势退守，等待时机。",
+  lines:[
+    {name:"初六", text:"剥床以足，蔑贞凶。", textModern:"剥落床脚开始，忽视正道则凶。"},
+    {name:"六二", text:"剥床以辨，蔑贞凶。", textModern:"剥落床板，忽视正道则凶。"},
+    {name:"六三", text:"剥之，无咎。", textModern:"虽然被剥落，但没有过错。"},
+    {name:"六四", text:"剥床以肤，凶。", textModern:"剥落到了床上的皮肤，凶险。伤害及身。"},
+    {name:"六五", text:"贯鱼，以宫人宠，无不利。", textModern:"像一串鱼一样排列，以宫人之礼受宠，没有不利。"},
+    {name:"上九", text:"硕果不食，君子得舆，小人剥庐。", textModern:"硕大的果实没有人吃，君子得到车马，小人连茅屋都剥落了。"}
+  ]
+};
+
+// --- 24. 复 (fù) — 坤上震下 ---
+HEXAGRAM_DATA[24] = {
+  kingWen:24, nameZh:"复", namePinyin:"fù",
+  upperTrigram: TRIGRAMS.kun, lowerTrigram: TRIGRAMS.zhen,
+  binaryValue: 0b100000,
+  judgment:"亨。出入无疾，朋来无咎。反复其道，七日来复，利有攸往。",
+  judgmentModern:"亨通。出入没有疾病，朋友来了没有过错。循环往复，七天一个周期，利于有所前往。",
+  interpretation:"复卦象征回复、复归。上坤为地，下震为雷，一阳复生于五阴之下，是阴尽阳生的转折点。得此卦者，冬至阳生、否极泰来。好运即将回归，宜做好准备。",
+  lines:[
+    {name:"初九", text:"不远复，无祗悔，元吉。", textModern:"走得不远就回头，没有大悔恨，大吉。"},
+    {name:"六二", text:"休复，吉。", textModern:"安然而复，吉祥。"},
+    {name:"六三", text:"频复，厉，无咎。", textModern:"频频反复，有危险但无过。"},
+    {name:"六四", text:"中行独复。", textModern:"行至中途独自返回。"},
+    {name:"六五", text:"敦复，无悔。", textModern:"敦厚地返回，没有悔恨。"},
+    {name:"上六", text:"迷复，凶，有灾眚。用行师，终有大败，以其国君，凶。至于十年，不克征。", textModern:"迷途不知返，有灾祸。出兵打仗会大败，连累国君，十年都无法再出征。"}
+  ]
+};
+
+// --- 25. 无妄 (wú wàng) — 乾上震下 ---
+HEXAGRAM_DATA[25] = {
+  kingWen:25, nameZh:"无妄", namePinyin:"wú wàng",
+  upperTrigram: TRIGRAMS.qian, lowerTrigram: TRIGRAMS.zhen,
+  binaryValue: 0b100111,
+  judgment:"元亨利贞。其匪正有眚，不利有攸往。",
+  judgmentModern:"大为亨通利于守正。如果不行正道会有灾祸，不利于有所前往。",
+  interpretation:"无妄卦象征不妄为、真实无虚。上乾为天，下震为雷，天下雷行，真实不欺。得此卦者，宜真诚待人、脚踏实地，不可存侥幸心理。诚实是最好的策略。",
+  lines:[
+    {name:"初九", text:"无妄，往吉。", textModern:"不妄为，前往吉祥。"},
+    {name:"六二", text:"不耕获，不菑畲，则利有攸往。", textModern:"不耕种就想收获，不开荒就想熟田，这样利于前往吗？不要妄想不劳而获。"},
+    {name:"六三", text:"无妄之灾，或系之牛，行人之得，邑人之灾。", textModern:"无妄之灾，有人拴了头牛，被路人牵走了，村里人却遭了灾。飞来横祸。"},
+    {name:"九四", text:"可贞，无咎。", textModern:"可以守正，没有过错。"},
+    {name:"九五", text:"无妄之疾，勿药有喜。", textModern:"无端得的病，不用吃药自然好了。不要过度反应。"},
+    {name:"上九", text:"无妄，行有眚，无攸利。", textModern:"不要妄为，行动有灾祸，没有好处。"}
+  ]
+};
+
+// --- 26. 大畜 (dà xù) — 艮上乾下 ---
+HEXAGRAM_DATA[26] = {
+  kingWen:26, nameZh:"大畜", namePinyin:"dà xù",
+  upperTrigram: TRIGRAMS.gen, lowerTrigram: TRIGRAMS.qian,
+  binaryValue: 0b111001,
+  judgment:"利贞，不家食吉，利涉大川。",
+  judgmentModern:"利于守正，不在家吃闲饭吉祥，利于渡过大河。",
+  interpretation:"大畜卦象征大积蓄。上艮为山，下乾为天，天藏于山中，大有积蓄。得此卦者，需要不断学习积累，厚积薄发。宜出外发展，不宜困守家中。",
+  lines:[
+    {name:"初九", text:"有厉，利已。", textModern:"有危险，宜停止行动。"},
+    {name:"九二", text:"舆说輹。", textModern:"车轮脱落。暂时受阻。"},
+    {name:"九三", text:"良马逐，利艰贞。曰闲舆卫，利有攸往。", textModern:"良马奔驰，宜艰难守正。日日练习驾车护卫，利于有所前往。"},
+    {name:"六四", text:"童牛之牿，元吉。", textModern:"给小牛角上戴上防护，大吉。防患于未然。"},
+    {name:"六五", text:"豮豕之牙，吉。", textModern:"阉割过的猪的牙齿不伤人，吉祥。消除隐患。"},
+    {name:"上九", text:"何天之衢，亨。", textModern:"何等通天的大道啊，亨通。"}
+  ]
+};
+
+// --- 27. 颐 (yí) — 艮上震下 ---
+HEXAGRAM_DATA[27] = {
+  kingWen:27, nameZh:"颐", namePinyin:"yí",
+  upperTrigram: TRIGRAMS.gen, lowerTrigram: TRIGRAMS.zhen,
+  binaryValue: 0b100001,
+  judgment:"贞吉。观颐，自求口实。",
+  judgmentModern:"守正则吉。观察养生之道，自己谋求食物。",
+  interpretation:"颐卦象征颐养、养生。上艮为山，下震为雷，山下有雷，如口中咀嚼。卦形像一张嘴。得此卦者，关注健康饮食和养生之道，也要自食其力。",
+  lines:[
+    {name:"初九", text:"舍尔灵龟，观我朵颐，凶。", textModern:"舍弃你灵龟般的智慧，看着我大嚼美食流口水，凶险。"},
+    {name:"六二", text:"颠颐，拂经，于丘颐，征凶。", textModern:"颠倒了养生的常道，违背常理，出征凶险。"},
+    {name:"六三", text:"拂颐，贞凶。十年勿用，无攸利。", textModern:"违背养生之道，守正也有凶。十年不能行动，没有好处。"},
+    {name:"六四", text:"颠颐，吉。虎视眈眈，其欲逐逐，无咎。", textModern:"颠倒养生之道反而吉祥。虎视眈眈、欲望追逐，没有过错。"},
+    {name:"六五", text:"拂经，居贞吉，不可涉大川。", textModern:"违背常理，但安居守正则吉，不可渡大河。"},
+    {name:"上九", text:"由颐，厉吉，利涉大川。", textModern:"顺应颐养之道，有危险但最终吉祥，利于渡大河。"}
+  ]
+};
+
+// --- 28. 大过 (dà guò) — 兑上巽下 ---
+HEXAGRAM_DATA[28] = {
+  kingWen:28, nameZh:"大过", namePinyin:"dà guò",
+  upperTrigram: TRIGRAMS.dui, lowerTrigram: TRIGRAMS.xun,
+  binaryValue: 0b011110,
+  judgment:"栋桡，利有攸往，亨。",
+  judgmentModern:"栋梁弯曲，利于有所前往，亨通。",
+  interpretation:"大过卦象征大为过甚、失衡。上兑为泽，下巽为风，泽灭木，过于淹没。中间四阳两阴，阳过盛。得此卦者，事情有些过头了，需要纠正偏差，恢复平衡。",
+  lines:[
+    {name:"初六", text:"藉用白茅，无咎。", textModern:"用白茅草垫底，没有过错。谨慎行事。"},
+    {name:"九二", text:"枯杨生稊，老夫得其女妻，无不利。", textModern:"枯杨树生新枝，老夫得少妻，没有不利。"},
+    {name:"九三", text:"栋桡，凶。", textModern:"栋梁弯曲，凶险。"},
+    {name:"九四", text:"栋隆，吉。有它吝。", textModern:"栋梁隆起，吉祥。但有其他麻烦。"},
+    {name:"九五", text:"枯杨生华，老妇得其士夫，无咎无誉。", textModern:"枯杨树开花，老妇得少夫，没有过错也没有赞誉。"},
+    {name:"上六", text:"过涉灭顶，凶，无咎。", textModern:"涉水过头被淹没，凶险，但没有被怪罪的过错。"}
+  ]
+};
+
+// --- 29. 坎 (kǎn) — 坎上坎下 ---
+HEXAGRAM_DATA[29] = {
+  kingWen:29, nameZh:"坎", namePinyin:"kǎn",
+  upperTrigram: TRIGRAMS.kan, lowerTrigram: TRIGRAMS.kan,
+  binaryValue: 0b010010,
+  judgment:"习坎，有孚，维心亨，行有尚。",
+  judgmentModern:"面对重重险阻，心怀诚信，内心亨通，行动会有好结果。",
+  interpretation:"坎卦象征险阻、水。双坎相叠，险中又险。得此卦者，面临重重困难和危险。但水能适应任何容器，要学习水的灵活和坚韧，保持内心诚信，终究能化险为夷。",
+  lines:[
+    {name:"初六", text:"习坎，入于坎窞，凶。", textModern:"重重险阻之中，掉进陷阱深处，凶险。"},
+    {name:"九二", text:"坎有险，求小得。", textModern:"坎中有危险，只求有小收获。"},
+    {name:"六三", text:"来之坎坎，险且枕，入于坎窞，勿用。", textModern:"来到又一道坎，前面是险后面也是险，掉入陷阱，不可施展。"},
+    {name:"六四", text:"樽酒簋贰，用缶，纳约自牖，终无咎。", textModern:"一樽酒两碗饭，用瓦器盛着，从窗户送进去，最终无过错。"},
+    {name:"九五", text:"坎不盈，祗既平，无咎。", textModern:"陷阱没有填满，小山丘已经平了，没有过错。"},
+    {name:"上六", text:"系用徽纆，寘于丛棘，三岁不得，凶。", textModern:"用绳索捆绑，囚于荆棘丛中，三年不得脱身，凶险。"}
+  ]
+};
+
+// --- 30. 离 (lí) — 离上离下 ---
+HEXAGRAM_DATA[30] = {
+  kingWen:30, nameZh:"离", namePinyin:"lí",
+  upperTrigram: TRIGRAMS.li, lowerTrigram: TRIGRAMS.li,
+  binaryValue: 0b101101,
+  judgment:"利贞，亨。畜牝牛，吉。",
+  judgmentModern:"利于守正，亨通。养母牛，吉祥。",
+  interpretation:"离卦象征光明、依附。双离相叠，光明相继。火必须依附燃料才能燃烧，万物必须相互依附。得此卦者，需要找到可以依附的力量，以柔顺光明的方式行事。",
+  lines:[
+    {name:"初九", text:"履错然，敬之无咎。", textModern:"步履交错杂乱，谨慎恭敬则无过。"},
+    {name:"六二", text:"黄离，元吉。", textModern:"黄色光明，大吉。柔和正中。"},
+    {name:"九三", text:"日昃之离，不鼓缶而歌，则大耋之嗟，凶。", textModern:"太阳西斜的光明，若不击缶而歌，会有老人的悲叹，凶。"},
+    {name:"九四", text:"突如其来如，焚如，死如，弃如。", textModern:"突然而来，像火烧一样，像死去一样，像被抛弃一样。"},
+    {name:"六五", text:"出涕沱若，戚嗟若，吉。", textModern:"泪流满面，悲伤叹息，但因忧惧而吉祥。"},
+    {name:"上九", text:"王用出征，有嘉折首，获匪其丑，无咎。", textModern:"君王出征，嘉奖斩首之功，捕获的不是同类，没有过错。"}
+  ]
+};
+
+// --- 31. 咸 (xián) — 兑上艮下 ---
+HEXAGRAM_DATA[31] = {
+  kingWen:31, nameZh:"咸", namePinyin:"xián",
+  upperTrigram: TRIGRAMS.dui, lowerTrigram: TRIGRAMS.gen,
+  binaryValue: 0b001110,
+  judgment:"亨，利贞，取女吉。",
+  judgmentModern:"亨通，利于守正，娶妻吉祥。",
+  interpretation:"咸卦象征感应、感情。上兑为少女，下艮为少男，少男少女互相感应。得此卦者，人际关系和睦、感情融洽。也暗示男女之间的感情和婚姻之事。",
+  lines:[
+    {name:"初六", text:"咸其拇。", textModern:"感应到了大脚趾。初步的感应。"},
+    {name:"六二", text:"咸其腓，凶，居吉。", textModern:"感应到了小腿肚，凶险，不动则吉。"},
+    {name:"九三", text:"咸其股，执其随，往吝。", textModern:"感应到了大腿，执意跟随，前往有遗憾。"},
+    {name:"九四", text:"贞吉悔亡，憧憧往来，朋从尔思。", textModern:"守正则吉悔恨消失，人来人往，朋友们追随你的心意。"},
+    {name:"九五", text:"咸其脢，无悔。", textModern:"感应到了后背，没有悔恨。心意不通。"},
+    {name:"上六", text:"咸其辅颊舌。", textModern:"感应到了脸颊舌头。以言语表达。"}
+  ]
+};
+
+// --- 32. 恒 (héng) — 震上巽下 ---
+HEXAGRAM_DATA[32] = {
+  kingWen:32, nameZh:"恒", namePinyin:"héng",
+  upperTrigram: TRIGRAMS.zhen, lowerTrigram: TRIGRAMS.xun,
+  binaryValue: 0b011100,
+  judgment:"亨，无咎，利贞，利有攸往。",
+  judgmentModern:"亨通，没有过错，利于守正，利于有所前往。",
+  interpretation:"恒卦象征恒久、持久。上震为雷，下巽为风，雷风相随，恒久不变。得此卦者，要坚持不懈、持之以恒。但恒久不是一成不变，而是在坚持原则的前提下灵活调整。",
+  lines:[
+    {name:"初六", text:"浚恒，贞凶，无攸利。", textModern:"深求恒久之道，守正也有凶险，没有好处。"},
+    {name:"九二", text:"悔亡。", textModern:"悔恨消失了。"},
+    {name:"九三", text:"不恒其德，或承之羞，贞吝。", textModern:"不能恒久保持德行，难免遭到羞辱，守正也有遗憾。"},
+    {name:"九四", text:"田无禽。", textModern:"田猎没有收获。"},
+    {name:"六五", text:"恒其德，贞。妇人吉，夫子凶。", textModern:"恒久保持德行，守正。妇人吉祥，男子则有凶险。"},
+    {name:"上六", text:"振恒，凶。", textModern:"动摇不定却想持久，凶险。"}
+  ]
+};
+
+// --- 33. 遁 (dùn) — 乾上艮下 ---
+HEXAGRAM_DATA[33] = {
+  kingWen:33, nameZh:"遁", namePinyin:"dùn",
+  upperTrigram: TRIGRAMS.qian, lowerTrigram: TRIGRAMS.gen,
+  binaryValue: 0b001111,
+  judgment:"亨，小利贞。",
+  judgmentModern:"亨通，小有利且守正。",
+  interpretation:"遁卦象征退避、隐退。上乾为天，下艮为山，山高而天远，君子隐退远离小人。得此卦者，小人得势，君子宜暂退以自保。退不是懦弱，而是智慧。",
+  lines:[
+    {name:"初六", text:"遁尾，厉，勿用有攸往。", textModern:"退避时落在最后，危险，不宜有所前往。"},
+    {name:"六二", text:"执之用黄牛之革，莫之胜说。", textModern:"用黄牛皮绳牢牢捆住，无法挣脱。坚定退隐之志。"},
+    {name:"九三", text:"系遁，有疾厉，畜臣妾吉。", textModern:"被牵挂不能退，有疾病危险，畜养仆妾吉祥。"},
+    {name:"九四", text:"好遁，君子吉，小人否。", textModern:"勇于退避，君子吉祥，小人做不到。"},
+    {name:"九五", text:"嘉遁，贞吉。", textModern:"恰当的退避，守正则吉。"},
+    {name:"上九", text:"肥遁，无不利。", textModern:"宽裕从容地退避，没有不利。"}
+  ]
+};
+
+// --- 34. 大壮 (dà zhuàng) — 震上乾下 ---
+HEXAGRAM_DATA[34] = {
+  kingWen:34, nameZh:"大壮", namePinyin:"dà zhuàng",
+  upperTrigram: TRIGRAMS.zhen, lowerTrigram: TRIGRAMS.qian,
+  binaryValue: 0b111100,
+  judgment:"利贞。",
+  judgmentModern:"利于守正。",
+  interpretation:"大壮卦象征盛大强壮。上震为雷，下乾为天，雷在天上，声势浩大。四阳在下，阳气大盛。得此卦者，实力强大、势头正猛。但越是强大越要守正，切忌恃强凌弱。",
+  lines:[
+    {name:"初九", text:"壮于趾，征凶，有孚。", textModern:"在脚趾处强盛，出征有凶险，要存诚信。"},
+    {name:"九二", text:"贞吉。", textModern:"守正则吉。"},
+    {name:"九三", text:"小人用壮，君子用罔，贞厉。羝羊触藩，羸其角。", textModern:"小人用蛮力，君子不用。公羊顶篱笆，角被卡住。"},
+    {name:"九四", text:"贞吉悔亡，藩决不羸，壮于大舆之輹。", textModern:"守正吉悔恨消，篱笆破了羊角也不会卡住，像大车的辐条一样强壮。"},
+    {name:"六五", text:"丧羊于易，无悔。", textModern:"在田畔丢了羊，没有悔恨。"},
+    {name:"上六", text:"羝羊触藩，不能退，不能遂，无攸利，艰则吉。", textModern:"公羊顶篱笆，退不了又不能进，没有好处，在艰难中守正则吉。"}
+  ]
+};
+
+// --- 35. 晋 (jìn) — 离上坤下 ---
+HEXAGRAM_DATA[35] = {
+  kingWen:35, nameZh:"晋", namePinyin:"jìn",
+  upperTrigram: TRIGRAMS.li, lowerTrigram: TRIGRAMS.kun,
+  binaryValue: 0b000101,
+  judgment:"康侯用锡马蕃庶，昼日三接。",
+  judgmentModern:"康侯被赐予众多马匹，一天之内三次受到接见。",
+  interpretation:"晋卦象征前进、晋升。上离为火，下坤为地，日出地上，光明上进。得此卦者，事业蒸蒸日上，有晋升或进步的机会。要把握时机、积极进取。",
+  lines:[
+    {name:"初六", text:"晋如摧如，贞吉。罔孚，裕无咎。", textModern:"前进遇到挫折，守正则吉。未得信任，从容自处则无过。"},
+    {name:"六二", text:"晋如愁如，贞吉。受兹介福，于其王母。", textModern:"前进中忧愁，守正则吉。得到大福，来自于祖母。"},
+    {name:"六三", text:"众允，悔亡。", textModern:"大家赞同，悔恨消失。"},
+    {name:"九四", text:"晋如鼫鼠，贞厉。", textModern:"像大老鼠一样前进，守正也有危险。才不配位。"},
+    {name:"六五", text:"悔亡，失得勿恤，往吉无不利。", textModern:"悔恨消失，不要计较得失，前往吉祥没有不利。"},
+    {name:"上九", text:"晋其角，维用伐邑，厉吉无咎，贞吝。", textModern:"前进到犄角之地，用以征伐邑国，有危终吉无过，但守正仍有遗憾。"}
+  ]
+};
+
+// --- 36. 明夷 (míng yí) — 坤上离下 ---
+HEXAGRAM_DATA[36] = {
+  kingWen:36, nameZh:"明夷", namePinyin:"míng yí",
+  upperTrigram: TRIGRAMS.kun, lowerTrigram: TRIGRAMS.li,
+  binaryValue: 0b101000,
+  judgment:"利艰贞。",
+  judgmentModern:"利于艰难中守正。",
+  interpretation:"明夷卦象征光明受伤。上坤为地，下离为火，日入地下，光明被遮蔽。得此卦者，处境艰难，才华被压制。但黑暗只是暂时的，保持内心的光明，等待黎明。",
+  lines:[
+    {name:"初九", text:"明夷于飞，垂其翼。君子于行，三日不食，有攸往，主人有言。", textModern:"受伤的鸟飞行时垂下翅膀。君子出行，三天没有饭吃，有所前往，主人有怨言。"},
+    {name:"六二", text:"明夷，夷于左股，用拯马壮，吉。", textModern:"光明受伤，伤了左腿，用强壮的马来救助，吉祥。"},
+    {name:"九三", text:"明夷于南狩，得其大首，不可疾贞。", textModern:"在南方狩猎中取得大胜利，不可急于求成。"},
+    {name:"六四", text:"入于左腹，获明夷之心，于出门庭。", textModern:"进入左腹，获得了受伤光明者的心意，然后出门离开。"},
+    {name:"六五", text:"箕子之明夷，利贞。", textModern:"像箕子那样在黑暗中保全，利于守正。"},
+    {name:"上六", text:"不明晦，初登于天，后入于地。", textModern:"不光明反而昏暗，开始升到天上，后来落到地下。"}
+  ]
+};
+
+// --- 37. 家人 (jiā rén) — 巽上离下 ---
+HEXAGRAM_DATA[37] = {
+  kingWen:37, nameZh:"家人", namePinyin:"jiā rén",
+  upperTrigram: TRIGRAMS.xun, lowerTrigram: TRIGRAMS.li,
+  binaryValue: 0b101011,
+  judgment:"利女贞。",
+  judgmentModern:"利于妇人守正。",
+  interpretation:"家人卦象征家庭。上巽为风，下离为火，风从火出，各司其职。得此卦者，家庭关系重要，要各尽其责。家道正，则天下定。",
+  lines:[
+    {name:"初九", text:"闲有家，悔亡。", textModern:"防范于家，悔恨消失。治家要严。"},
+    {name:"六二", text:"无攸遂，在中馈，贞吉。", textModern:"没有一定要做的事，在家中烹饪料理，守正则吉。"},
+    {name:"九三", text:"家人嗃嗃，悔厉吉。妇子嘻嘻，终吝。", textModern:"家人严肃苛刻，虽有悔有威但终吉。妇人孩子嘻嘻哈哈，终有遗憾。"},
+    {name:"六四", text:"富家，大吉。", textModern:"使家庭富裕，大吉。"},
+    {name:"九五", text:"王假有家，勿恤，吉。", textModern:"君王到家中有感化，不用担心，吉祥。"},
+    {name:"上九", text:"有孚威如，终吉。", textModern:"有诚信又有威严，终吉。"}
+  ]
+};
+
+// --- 38. 睽 (kuí) — 离上兑下 ---
+HEXAGRAM_DATA[38] = {
+  kingWen:38, nameZh:"睽", namePinyin:"kuí",
+  upperTrigram: TRIGRAMS.li, lowerTrigram: TRIGRAMS.dui,
+  binaryValue: 0b011101,
+  judgment:"小事吉。",
+  judgmentModern:"小事吉祥。",
+  interpretation:"睽卦象征乖离、分歧。上离为火，下兑为泽，火在上面水在下面，水火不相交。得此卦者，人际关系有分歧或隔阂。求同存异，小事上可以合作，大事上难统一。",
+  lines:[
+    {name:"初九", text:"悔亡，丧马勿逐，自复。见恶人无咎。", textModern:"悔恨消失，丢了马不用去追，自己会回来。见到恶人也无过错。"},
+    {name:"九二", text:"遇主于巷，无咎。", textModern:"在小巷中遇到主人，没有过错。意外的相遇。"},
+    {name:"六三", text:"见舆曳，其牛掣，其人天且劓，无初有终。", textModern:"看到车被拖住，牛被牵制，人额上刺字鼻子被割，开始不顺但有好的结局。"},
+    {name:"九四", text:"睽孤，遇元夫，交孚，厉无咎。", textModern:"乖离孤独，遇到一位大夫，以诚相交，有危险但无过。"},
+    {name:"六五", text:"悔亡，厥宗噬肤，往何咎？", textModern:"悔恨消失，他的宗族来参与宴饮，前往有何过错？"},
+    {name:"上九", text:"睽孤，见豕负涂，载鬼一车，先张之弧，后说之弧，匪寇婚媾，往遇雨则吉。", textModern:"孤独乖离中，看到猪在泥里滚，一车鬼怪，先拉弓后放下，不是盗寇是来求婚的，前往遇到下雨则吉。"}
+  ]
+};
+
+// --- 39. 蹇 (jiǎn) — 坎上艮下 ---
+HEXAGRAM_DATA[39] = {
+  kingWen:39, nameZh:"蹇", namePinyin:"jiǎn",
+  upperTrigram: TRIGRAMS.kan, lowerTrigram: TRIGRAMS.gen,
+  binaryValue: 0b001010,
+  judgment:"利西南，不利东北。利见大人，贞吉。",
+  judgmentModern:"利于往西南，不利于往东北。利于见贵人，守正则吉。",
+  interpretation:"蹇卦象征艰难、跛足。上坎为水，下艮为山，山上有水，行路艰难。得此卦者，前路困难重重，宜退守等待。需要贵人相助，不宜冒进。",
+  lines:[
+    {name:"初六", text:"往蹇，来誉。", textModern:"前往则有艰难，回来则得赞誉。"},
+    {name:"六二", text:"王臣蹇蹇，匪躬之故。", textModern:"王臣屡遭艰难，不是因为自己的过错。"},
+    {name:"九三", text:"往蹇，来反。", textModern:"前往有艰难，还是回来吧。"},
+    {name:"六四", text:"往蹇，来连。", textModern:"前往有艰难，回来则有连结。"},
+    {name:"九五", text:"大蹇，朋来。", textModern:"面临大艰难，朋友们会来帮助。"},
+    {name:"上六", text:"往蹇，来硕，吉。利见大人。", textModern:"前往有艰难，回来有巨大收获，吉祥。利于见贵人。"}
+  ]
+};
+
+// --- 40. 解 (xiè) — 震上坎下 ---
+HEXAGRAM_DATA[40] = {
+  kingWen:40, nameZh:"解", namePinyin:"xiè",
+  upperTrigram: TRIGRAMS.zhen, lowerTrigram: TRIGRAMS.kan,
+  binaryValue: 0b010100,
+  judgment:"利西南，无所往，其来复吉。有攸往，夙吉。",
+  judgmentModern:"利于西南方向，没什么要前往的，回归则吉祥。如果要去，尽早则吉。",
+  interpretation:"解卦象征解除、化解困难。上震为雷，下坎为水，雷雨交加，雨过天晴。得此卦者，困难将解除，问题会得到解决。宜尽快行动，不可拖延。宽以待人，化解矛盾。",
+  lines:[
+    {name:"初六", text:"无咎。", textModern:"没有过错。"},
+    {name:"九二", text:"田获三狐，得黄矢，贞吉。", textModern:"田猎捕获三只狐狸，得到黄色的弓箭，守正则吉。"},
+    {name:"六三", text:"负且乘，致寇至，贞吝。", textModern:"背着东西又乘车，招来盗寇，守正也有遗憾。"},
+    {name:"九四", text:"解而拇，朋至斯孚。", textModern:"解除你脚上的束缚，朋友们就会带着诚信到来。"},
+    {name:"六五", text:"君子维有解，吉。有孚于小人。", textModern:"君子能够解除束缚，吉祥。连小人也信服。"},
+    {name:"上六", text:"公用射隼于高墉之上，获之，无不利。", textModern:"公侯在高墙上射鹰，捕获了它，没有不利。"}
+  ]
+};
+
+// --- 41. 损 (sǔn) — 艮上兑下 ---
+HEXAGRAM_DATA[41] = {
+  kingWen:41, nameZh:"损", namePinyin:"sǔn",
+  upperTrigram: TRIGRAMS.gen, lowerTrigram: TRIGRAMS.dui,
+  binaryValue: 0b011001,
+  judgment:"有孚，元吉，无咎，可贞，利有攸往。曷之用？二簋可用享。",
+  judgmentModern:"有诚信则大吉，无过，可以守正，利于前往。用什么祭祀呢？两碗饭就可以了。",
+  interpretation:"损卦象征减损。上艮为山，下兑为泽，损下益上。有损必有益，损己利人终得报。得此卦者，可能需要做出一些牺牲或减少，但这是为了长远的好。",
+  lines:[
+    {name:"初九", text:"已事遄往，无咎，酌损之。", textModern:"事情办完赶快前往，没有过错，酌情减损一些。"},
+    {name:"九二", text:"利贞，征凶，弗损益之。", textModern:"利于守正，出征凶险。不减损反而是增益。"},
+    {name:"六三", text:"三人行，则损一人。一人行，则得其友。", textModern:"三人同行，会减少一人。一人独行，反而会得到朋友。"},
+    {name:"六四", text:"损其疾，使遄有喜，无咎。", textModern:"减损其疾病，使其很快痊愈有喜，没有过错。"},
+    {name:"六五", text:"或益之十朋之龟，弗克违，元吉。", textModern:"有人送来价值十朋的龟甲，无法推辞，大吉。"},
+    {name:"上九", text:"弗损益之，无咎，贞吉，利有攸往，得臣无家。", textModern:"不减损反增益，无过错，守正则吉，利于前往，得到无家室的臣仆。"}
+  ]
+};
+
+// --- 42. 益 (yì) — 巽上震下 ---
+HEXAGRAM_DATA[42] = {
+  kingWen:42, nameZh:"益", namePinyin:"yì",
+  upperTrigram: TRIGRAMS.xun, lowerTrigram: TRIGRAMS.zhen,
+  binaryValue: 0b100011,
+  judgment:"利有攸往，利涉大川。",
+  judgmentModern:"利于有所前往，利于渡过大河。",
+  interpretation:"益卦象征增益、利益。上巽为风，下震为雷，风雷相益，损上益下。得此卦者，运势上升，会有收获和增益。抓住机会前进，也要懂得分享利益给他人。",
+  lines:[
+    {name:"初九", text:"利用为大作，元吉，无咎。", textModern:"利于做大事，大吉，没有过错。"},
+    {name:"六二", text:"或益之十朋之龟，弗克违，永贞吉。王用享于帝，吉。", textModern:"有人送来十朋的龟甲，不能推辞，永远守正则吉。君王以此祭祀天帝，吉祥。"},
+    {name:"六三", text:"益之用凶事，无咎。有孚中行，告公用圭。", textModern:"用增益来处理灾祸之事，没有过错。有诚信行中道，手持玉圭向公侯报告。"},
+    {name:"六四", text:"中行，告公从。利用为依迁国。", textModern:"践行中道，报告公侯并获得听从。利于以此为依据迁移国都。"},
+    {name:"九五", text:"有孚惠心，勿问元吉。有孚惠我德。", textModern:"有诚信和施惠之心，不用问大吉。有诚信的人会感激我的德行。"},
+    {name:"上九", text:"莫益之，或击之，立心勿恒，凶。", textModern:"没有人帮他，反而有人攻击他，心志不坚定，凶险。"}
+  ]
+};
+
+// --- 43. 夬 (guài) — 兑上乾下 ---
+HEXAGRAM_DATA[43] = {
+  kingWen:43, nameZh:"夬", namePinyin:"guài",
+  upperTrigram: TRIGRAMS.dui, lowerTrigram: TRIGRAMS.qian,
+  binaryValue: 0b111110,
+  judgment:"扬于王庭，孚号有厉。告自邑，不利即戎，利有攸往。",
+  judgmentModern:"在朝廷上公开声明，有诚信地号令但有危险。从自己的邑城告知，不宜动武，利于有所前往。",
+  interpretation:"夬卦象征决断、裁决。上兑为泽，下乾为天，泽水在天上，决堤而下。五阳决一阴，君子决断小人。得此卦者，到了必须做出决定的时候，要果断但不能鲁莽。",
+  lines:[
+    {name:"初九", text:"壮于前趾，往不胜为咎。", textModern:"只在前脚趾强壮，前往不能取胜反而是过错。"},
+    {name:"九二", text:"惕号，莫夜有戎，勿恤。", textModern:"警惕地号令，夜晚有兵戎来袭，不要担忧。"},
+    {name:"九三", text:"壮于頄，有凶。君子夬夬，独行遇雨，若濡有愠，无咎。", textModern:"颧骨强壮，有凶险。君子决断而行，独自前行遇到雨，身体湿了有些恼怒，但没有过错。"},
+    {name:"九四", text:"臀无肤，其行次且。牵羊悔亡，闻言不信。", textModern:"臀部没有皮肤，行走艰难。牵着羊则悔恨消失，听到这话却不相信。"},
+    {name:"九五", text:"苋陆夬夬，中行无咎。", textModern:"像苋菜一样决断而除，行中道则无过。"},
+    {name:"上六", text:"无号，终有凶。", textModern:"没有号令，最终有凶险。"}
+  ]
+};
+
+// --- 44. 姤 (gòu) — 乾上巽下 ---
+HEXAGRAM_DATA[44] = {
+  kingWen:44, nameZh:"姤", namePinyin:"gòu",
+  upperTrigram: TRIGRAMS.qian, lowerTrigram: TRIGRAMS.xun,
+  binaryValue: 0b110111,
+  judgment:"女壮，勿用取女。",
+  judgmentModern:"女子太强壮了，不要娶这个女子。",
+  interpretation:"姤卦象征相遇、邂逅。上乾为天，下巽为风，风行天下，无物不遇。一阴遇五阳，一女遇五男。得此卦者，会有意外的相遇或机会，但也要小心应对。",
+  lines:[
+    {name:"初六", text:"系于金柅，贞吉。有攸往，见凶。羸豕孚蹢躅。", textModern:"拴在金属的刹车器上，守正则吉。有所前往则见凶。瘦猪在那里来回踱步。"},
+    {name:"九二", text:"包有鱼，无咎，不利宾。", textModern:"包裹里有鱼，没有过错，不适宜招待客人。"},
+    {name:"九三", text:"臀无肤，其行次且，厉，无大咎。", textModern:"臀部无肤，行走艰难，有危险但没有大过错。"},
+    {name:"九四", text:"包无鱼，起凶。", textModern:"包裹里没有鱼，将起凶险。"},
+    {name:"九五", text:"以杞包瓜，含章，有陨自天。", textModern:"用杞柳包住瓜，内有文采，有东西自天而降。"},
+    {name:"上九", text:"姤其角，吝，无咎。", textModern:"相遇在角落中，有遗憾，但没有过错。"}
+  ]
+};
+
+// --- 45. 萃 (cuì) — 兑上坤下 ---
+HEXAGRAM_DATA[45] = {
+  kingWen:45, nameZh:"萃", namePinyin:"cuì",
+  upperTrigram: TRIGRAMS.dui, lowerTrigram: TRIGRAMS.kun,
+  binaryValue: 0b000110,
+  judgment:"亨。王假有庙。利见大人，亨，利贞。用大牲吉，利有攸往。",
+  judgmentModern:"亨通。君王到宗庙。利于见贵人，亨通，利于守正。用大的牺牲祭祀吉祥，利于有所前往。",
+  interpretation:"萃卦象征聚集、荟萃。上兑为泽，下坤为地，泽在地上，水汇聚在一起。得此卦者，适合聚会、团结、集中力量。众人的力量大于个人。",
+  lines:[
+    {name:"初六", text:"有孚不终，乃乱乃萃。若号，一握为笑，勿恤，往无咎。", textModern:"诚信不能始终，于是混乱于是聚集。如果呼喊，忽然一握手就笑了，不要担忧，前往无过。"},
+    {name:"六二", text:"引吉，无咎，孚乃利用禴。", textModern:"被引导则吉祥，无过，有诚信则利以薄礼祭祀。"},
+    {name:"六三", text:"萃如嗟如，无攸利，往无咎，小吝。", textModern:"聚集而叹息，没有利，前往无过，小有遗憾。"},
+    {name:"九四", text:"大吉，无咎。", textModern:"大吉，没有过错。"},
+    {name:"九五", text:"萃有位，无咎。匪孚，元永贞，悔亡。", textModern:"聚集而有其位，无过。未获信任，始终守正，悔恨消失。"},
+    {name:"上六", text:"赍咨涕洟，无咎。", textModern:"叹息流泪涕零，没有过错。"}
+  ]
+};
+
+// --- 46. 升 (shēng) — 坤上巽下 ---
+HEXAGRAM_DATA[46] = {
+  kingWen:46, nameZh:"升", namePinyin:"shēng",
+  upperTrigram: TRIGRAMS.kun, lowerTrigram: TRIGRAMS.xun,
+  binaryValue: 0b110000,
+  judgment:"元亨，用见大人，勿恤，南征吉。",
+  judgmentModern:"大为亨通，利于见贵人，不要担忧，向南出征吉祥。",
+  interpretation:"升卦象征上升、升进。上坤为地，下巽为风，风在地下，渐渐上升。得此卦者，循序渐进、步步高升。就像树木从地中生长，不可急于求成。",
+  lines:[
+    {name:"初六", text:"允升，大吉。", textModern:"确实在上升，大吉。"},
+    {name:"九二", text:"孚乃利用禴，无咎。", textModern:"有诚信则薄祭也有利，无过。"},
+    {name:"九三", text:"升虚邑。", textModern:"上升到空虚的城邑。"},
+    {name:"六四", text:"王用亨于岐山，吉无咎。", textModern:"君王在岐山祭祀，吉祥无过。"},
+    {name:"六五", text:"贞吉，升阶。", textModern:"守正则吉，登上台阶。"},
+    {name:"上六", text:"冥升，利于不息之贞。", textModern:"在昏暗不清中上升，利于不停地守正。"}
+  ]
+};
+
+// --- 47. 困 (kùn) — 兑上坎下 ---
+HEXAGRAM_DATA[47] = {
+  kingWen:47, nameZh:"困", namePinyin:"kùn",
+  upperTrigram: TRIGRAMS.dui, lowerTrigram: TRIGRAMS.kan,
+  binaryValue: 0b010110,
+  judgment:"亨，贞，大人吉，无咎。有言不信。",
+  judgmentModern:"亨通，守正，大人吉祥，没有过错。有话说却没人相信。",
+  interpretation:"困卦象征困境、困穷。上兑为泽，下坎为水，泽中无水，干涸困苦。得此卦者，身处困境，做什么都不太顺利。但困境也是考验，能磨练人的意志。坚守正道，困境终会过去。",
+  lines:[
+    {name:"初六", text:"臀困于株木，入于幽谷，三岁不觌。", textModern:"臀部困在树桩上，陷入幽深的山谷，三年见不到人。"},
+    {name:"九二", text:"困于酒食，朱绂方来，利用亨祀，征凶，无咎。", textModern:"困于酒食之间，红色的官服刚刚送来，利于祭祀，出征有凶，没有大过错。"},
+    {name:"六三", text:"困于石，据于蒺藜，入于其宫，不见其妻，凶。", textModern:"困在石头中，靠在蒺藜上，进入他的家中，见不到妻子，凶险。"},
+    {name:"九四", text:"来徐徐，困于金车，吝，有终。", textModern:"慢慢走来，被困在金车中，有遗憾，但有好的结局。"},
+    {name:"九五", text:"劓刖，困于赤绂。乃徐有说，利用祭祀。", textModern:"受割鼻断足之刑，困于官服中。慢慢才得以脱身，利于祭祀。"},
+    {name:"上六", text:"困于葛藟，于臲兀，曰动悔。有悔，征吉。", textModern:"困在葛藤中，在危险之地，一动就有悔。将悔恨化为行动反而吉祥。"}
+  ]
+};
+
+// --- 48. 井 (jǐng) — 坎上巽下 ---
+HEXAGRAM_DATA[48] = {
+  kingWen:48, nameZh:"井", namePinyin:"jǐng",
+  upperTrigram: TRIGRAMS.kan, lowerTrigram: TRIGRAMS.xun,
+  binaryValue: 0b011010,
+  judgment:"改邑不改井，无丧无得，往来井井。汔至亦未繘井，羸其瓶，凶。",
+  judgmentModern:"城邑可以改造但水井不能移动，没有失去也没有得到，人们来来往往从井中取水。快打到了水却没有拉出水桶，反而打破了瓶子，凶险。",
+  interpretation:"井卦象征水井、养人。上坎为水，下巽为风，风入水底，如同井中汲水。井水养人无穷无尽，但也需要维护。得此卦者，要像井一样稳定可靠，滋养他人。",
+  lines:[
+    {name:"初六", text:"井泥不食，旧井无禽。", textModern:"井中有泥不能饮用，废弃的井连鸟都不来。"},
+    {name:"九二", text:"井谷射鲋，瓮敝漏。", textModern:"井底的水坑中射小鱼，打水的瓮破了漏水。才能被埋没。"},
+    {name:"九三", text:"井渫不食，为我心恻，可用汲，王明，并受其福。", textModern:"井淘干净了却不来喝，使我心中难过。可以来打水了，君王明察，大家都能受福。"},
+    {name:"六四", text:"井甃，无咎。", textModern:"用砖修砌井壁，没有过错。"},
+    {name:"九五", text:"井冽，寒泉食。", textModern:"井水清冽，像寒泉一样可饮用。"},
+    {name:"上六", text:"井收勿幕，有孚元吉。", textModern:"井口收拢但不要加盖，有诚信则大吉。"}
+  ]
+};
+
+// --- 49. 革 (gé) — 兑上离下 ---
+HEXAGRAM_DATA[49] = {
+  kingWen:49, nameZh:"革", namePinyin:"gé",
+  upperTrigram: TRIGRAMS.dui, lowerTrigram: TRIGRAMS.li,
+  binaryValue: 0b101110,
+  judgment:"已日乃孚，元亨利贞，悔亡。",
+  judgmentModern:"到了己日才有诚信，大为亨通利于守正，悔恨消失。",
+  interpretation:"革卦象征变革、革命。上兑为泽，下离为火，泽中有火，水火相灭，天地变革。得此卦者，面临重大变化，旧的不去新的不来。变革需要时机成熟，人心信服才行。",
+  lines:[
+    {name:"初九", text:"巩用黄牛之革。", textModern:"用黄牛皮牢牢捆扎。变革之前先稳住。"},
+    {name:"六二", text:"已日乃革之，征吉，无咎。", textModern:"到了己日才变革，出征吉祥，无过。"},
+    {name:"九三", text:"征凶，贞厉。革言三就，有孚。", textModern:"出征有凶险，守正有危险。变革的言论三次才被接受，有诚信。"},
+    {name:"九四", text:"悔亡，有孚改命，吉。", textModern:"悔恨消失，有诚信改变命运，吉祥。"},
+    {name:"九五", text:"大人虎变，未占有孚。", textModern:"大人像虎一样变革，不用占卜也知道有诚信。"},
+    {name:"上六", text:"君子豹变，小人革面。征凶，居贞吉。", textModern:"君子像豹一样文采变化，小人只是改变面孔。出征凶，安居守正则吉。"}
+  ]
+};
+
+// --- 50. 鼎 (dǐng) — 离上巽下 ---
+HEXAGRAM_DATA[50] = {
+  kingWen:50, nameZh:"鼎", namePinyin:"dǐng",
+  upperTrigram: TRIGRAMS.li, lowerTrigram: TRIGRAMS.xun,
+  binaryValue: 0b011101,
+  judgment:"元吉，亨。",
+  judgmentModern:"大吉，亨通。",
+  interpretation:"鼎卦象征鼎器、建立新格局。上离为火，下巽为风，风入火下，烹煮食物。鼎是权力的象征。得此卦者，有机会建立新的事业或格局，革故鼎新。",
+  lines:[
+    {name:"初六", text:"鼎颠趾，利出否。得妾以其子，无咎。", textModern:"鼎倾倒使足朝上，利于倒出坏东西。纳妾而有了儿子，没有过错。"},
+    {name:"九二", text:"鼎有实，我仇有疾，不我能即，吉。", textModern:"鼎中有食物，我的对手有疾病，不能接近我，吉祥。"},
+    {name:"九三", text:"鼎耳革，其行塞，雉膏不食，方雨亏悔，终吉。", textModern:"鼎耳损坏了，移动不便，肥美的野鸡肉吃不到，正要下雨时悔恨消除，终吉。"},
+    {name:"九四", text:"鼎折足，覆公餗，其形渥，凶。", textModern:"鼎脚断了，打翻了王公的美食，弄得一塌糊涂，凶险。"},
+    {name:"六五", text:"鼎黄耳金铉，利贞。", textModern:"鼎有黄色的耳和金属的杠，利于守正。"},
+    {name:"上九", text:"鼎玉铉，大吉，无不利。", textModern:"鼎有玉制的杠，大吉，没有不利。"}
+  ]
+};
+
+// --- 51. 震 (zhèn) — 震上震下 ---
+HEXAGRAM_DATA[51] = {
+  kingWen:51, nameZh:"震", namePinyin:"zhèn",
+  upperTrigram: TRIGRAMS.zhen, lowerTrigram: TRIGRAMS.zhen,
+  binaryValue: 0b100100,
+  judgment:"亨。震来虩虩，笑言哑哑。震惊百里，不丧匕鬯。",
+  judgmentModern:"亨通。雷声滚滚而来令人惊惧，过后谈笑自若。雷声震惊百里之外，手中祭祀的器具却没有掉落。",
+  interpretation:"震卦象征震动、惊雷。双震相叠，雷声接连不断。得此卦者，会遭遇突发事件或震动。面对变故要沉着冷静，保持定力。经历过恐惧之后，反而更加成熟。",
+  lines:[
+    {name:"初九", text:"震来虩虩，后笑言哑哑，吉。", textModern:"雷声来时惊恐，过后笑语自若，吉祥。"},
+    {name:"六二", text:"震来厉，亿丧贝，跻于九陵，勿逐，七日得。", textModern:"雷震来势凶猛，估计会损失财物，逃到高高的山上，不必去追寻，七天后会失而复得。"},
+    {name:"六三", text:"震苏苏，震行无眚。", textModern:"雷声令人惶惶不安，雷震中行走没有灾祸。"},
+    {name:"九四", text:"震遂泥。", textModern:"雷震陷入泥泞之中。有力使不出。"},
+    {name:"六五", text:"震往来厉，亿无丧，有事。", textModern:"雷震去又来很危险，估计没有损失，但有事要处理。"},
+    {name:"上六", text:"震索索，视矍矍，征凶。震不于其躬，于其邻，无咎。婚媾有言。", textModern:"雷震令人颤抖，目光惊恐，出征凶险。雷震没有伤到自己而伤到邻居，无过。但婚姻之事会有闲言。"}
+  ]
+};
+
+// --- 52. 艮 (gèn) — 艮上艮下 ---
+HEXAGRAM_DATA[52] = {
+  kingWen:52, nameZh:"艮", namePinyin:"gèn",
+  upperTrigram: TRIGRAMS.gen, lowerTrigram: TRIGRAMS.gen,
+  binaryValue: 0b001001,
+  judgment:"艮其背，不获其身，行其庭，不见其人，无咎。",
+  judgmentModern:"静止在背后，不获得身体，走在庭院中，不看见人，没有过错。",
+  interpretation:"艮卦象征止息、静止。双艮相叠，两座山并立。得此卦者，该停的时候就要停下来。知止不殆。内心安宁，不受外物干扰，才是真正的静止。",
+  lines:[
+    {name:"初六", text:"艮其趾，无咎，利永贞。", textModern:"止住脚趾，没有过错，利于永远守正。"},
+    {name:"六二", text:"艮其腓，不拯其随，其心不快。", textModern:"止住小腿，不能救助要追随的人，心里不快。"},
+    {name:"九三", text:"艮其限，列其夤，厉熏心。", textModern:"止住腰部，撕裂了脊背的肉，危险如烟熏心。"},
+    {name:"六四", text:"艮其身，无咎。", textModern:"止住身体，没有过错。"},
+    {name:"六五", text:"艮其辅，言有序，悔亡。", textModern:"止住面颊，说话有条不紊，悔恨消失。"},
+    {name:"上九", text:"敦艮，吉。", textModern:"敦厚地止息，吉祥。"}
+  ]
+};
+
+// --- 53. 渐 (jiàn) — 巽上艮下 ---
+HEXAGRAM_DATA[53] = {
+  kingWen:53, nameZh:"渐", namePinyin:"jiàn",
+  upperTrigram: TRIGRAMS.xun, lowerTrigram: TRIGRAMS.gen,
+  binaryValue: 0b001011,
+  judgment:"女归吉，利贞。",
+  judgmentModern:"女子出嫁吉祥，利于守正。",
+  interpretation:"渐卦象征渐进、缓慢。上巽为风，下艮为山，山上之风，徐徐而行。得此卦者，事情需要慢慢来，不可操之过急。像女子出嫁一样，一步步按程序走。",
+  lines:[
+    {name:"初六", text:"鸿渐于干，小子厉，有言，无咎。", textModern:"大雁飞到了岸边，小孩子有危险，有人会说闲话，但无大过。"},
+    {name:"六二", text:"鸿渐于磐，饮食衎衎，吉。", textModern:"大雁飞到大石上，安然饮食，吉祥。"},
+    {name:"九三", text:"鸿渐于陆，夫征不复，妇孕不育，凶。利御寇。", textModern:"大雁飞到陆地上，丈夫出征未归，妇人怀了孩子却流产，凶险。利于抵御盗寇。"},
+    {name:"六四", text:"鸿渐于木，或得其桷，无咎。", textModern:"大雁飞到树上，有的找到了平整的树枝，没有过错。"},
+    {name:"九五", text:"鸿渐于陵，妇三岁不孕，终莫之胜，吉。", textModern:"大雁飞到山陵上，妇人三年没有怀孕，最终没有什么能阻挡她，吉祥。"},
+    {name:"上九", text:"鸿渐于逵，其羽可用为仪，吉。", textModern:"大雁飞到了通路上，它的羽毛可用来做礼仪装饰，吉祥。"}
+  ]
+};
+
+// --- 54. 归妹 (guī mèi) — 震上兑下 ---
+HEXAGRAM_DATA[54] = {
+  kingWen:54, nameZh:"归妹", namePinyin:"guī mèi",
+  upperTrigram: TRIGRAMS.zhen, lowerTrigram: TRIGRAMS.dui,
+  binaryValue: 0b011100,
+  judgment:"征凶，无攸利。",
+  judgmentModern:"出征凶险，没有好处。",
+  interpretation:"归妹卦象征嫁女、婚嫁。上震为雷，下兑为泽，雷动泽上，以少女配长男，不太匹配。得此卦者，涉及婚姻或合作关系，但匹配度不太理想，需要谨慎考虑。",
+  lines:[
+    {name:"初九", text:"归妹以娣，跛能履，征吉。", textModern:"嫁妹以娣陪嫁，跛脚也能行走，出征吉祥。"},
+    {name:"九二", text:"眇能视，利幽人之贞。", textModern:"瞎了一只眼还能看见，利于幽隐之人的守正。"},
+    {name:"六三", text:"归妹以须，反归以娣。", textModern:"嫁妹以姐姐陪嫁，结果妹妹反被送回，只能以妹妹陪嫁。"},
+    {name:"九四", text:"归妹愆期，迟归有时。", textModern:"嫁女错过了期限，推迟嫁出是有原因的，会有时机。"},
+    {name:"六五", text:"帝乙归妹，其君之袂，不如其娣之袂良。月几望，吉。", textModern:"帝乙嫁妹，正妻的衣袖不如陪嫁妹妹的好看。月亮快圆的时候，吉祥。"},
+    {name:"上六", text:"女承筐无实，士刲羊无血，无攸利。", textModern:"女子捧着空筐没有东西，男子杀羊却没有血，没有好处。"}
+  ]
+};
+
+// --- 55. 丰 (fēng) — 震上离下 ---
+HEXAGRAM_DATA[55] = {
+  kingWen:55, nameZh:"丰", namePinyin:"fēng",
+  upperTrigram: TRIGRAMS.zhen, lowerTrigram: TRIGRAMS.li,
+  binaryValue: 0b101100,
+  judgment:"亨，王假之，勿忧，宜日中。",
+  judgmentModern:"亨通，君王亲自到来，不用担忧，宜于日中之时行事。",
+  interpretation:"丰卦象征丰盛、盛大。上震为雷，下离为火，雷电交加，声势浩大。得此卦者，事业处于丰盛时期。但日到中天必将西斜，盛极必衰，要居安思危。",
+  lines:[
+    {name:"初九", text:"遇其配主，虽旬无咎，往有尚。", textModern:"遇到与自己匹配的主人，虽然过了十日也无过，前往有好处。"},
+    {name:"六二", text:"丰其蔀，日中见斗，往得疑疾，有孚发若，吉。", textModern:"丰盛时遮了荫，正午时看到北斗星，前往会得疑心之病，有诚信发挥出来则吉。"},
+    {name:"九三", text:"丰其沛，日中见沬，折其右肱，无咎。", textModern:"丰盛时遮了幔帐，正午看到小星，折断了右臂，没有大过错。"},
+    {name:"九四", text:"丰其蔀，日中见斗，遇其夷主，吉。", textModern:"丰盛时遮了荫，正午看到北斗星，遇到了平易的主人，吉祥。"},
+    {name:"六五", text:"来章，有庆誉，吉。", textModern:"文采光明而来，有喜庆和声誉，吉祥。"},
+    {name:"上六", text:"丰其屋，蔀其家，窥其户，阒其无人，三岁不觌，凶。", textModern:"房屋丰盛，庭院遮挡，从门缝往里看，静悄悄没有人，三年看不见，凶险。"}
+  ]
+};
+
+// --- 56. 旅 (lǚ) — 离上艮下 ---
+HEXAGRAM_DATA[56] = {
+  kingWen:56, nameZh:"旅", namePinyin:"lǚ",
+  upperTrigram: TRIGRAMS.li, lowerTrigram: TRIGRAMS.gen,
+  binaryValue: 0b001101,
+  judgment:"小亨，旅贞吉。",
+  judgmentModern:"小有亨通，旅途中守正则吉。",
+  interpretation:"旅卦象征旅行、客居。上离为火，下艮为山，山上有火，人在旅途。得此卦者，处于不稳定的状态，像在旅途中一样。要谨慎行事、随遇而安，不可太张扬。",
+  lines:[
+    {name:"初六", text:"旅琐琐，斯其所取灾。", textModern:"旅途中斤斤计较琐碎小事，正是招来灾祸的原因。"},
+    {name:"六二", text:"旅即次，怀其资，得童仆贞。", textModern:"旅途中找到住处，怀揣着财物，得到了忠心的童仆。"},
+    {name:"九三", text:"旅焚其次，丧其童仆，贞厉。", textModern:"旅途中住处被烧，失去了童仆，守正也有危险。"},
+    {name:"九四", text:"旅于处，得其资斧，我心不快。", textModern:"旅途中到达一个地方，得到了资财和斧头，但心里不痛快。"},
+    {name:"六五", text:"射雉一矢亡，终以誉命。", textModern:"射野鸡用了一支箭，虽有损失但最终得到赞誉和任命。"},
+    {name:"上九", text:"鸟焚其巢，旅人先笑后号咷。丧牛于易，凶。", textModern:"鸟巢被烧，旅人先笑后大哭。在田畔丢了牛，凶险。"}
+  ]
+};
+
+// --- 57. 巽 (xùn) — 巽上巽下 ---
+HEXAGRAM_DATA[57] = {
+  kingWen:57, nameZh:"巽", namePinyin:"xùn",
+  upperTrigram: TRIGRAMS.xun, lowerTrigram: TRIGRAMS.xun,
+  binaryValue: 0b110110,
+  judgment:"小亨，利有攸往，利见大人。",
+  judgmentModern:"小有亨通，利于有所前往，利于见贵人。",
+  interpretation:"巽卦象征顺从、进入。双巽相叠，风随风，无孔不入。得此卦者，宜以柔顺的方式行事，顺势而为。巽为风，风能渗透一切，所以小事情容易成功，大事情还需积累。",
+  lines:[
+    {name:"初六", text:"进退，利武人之贞。", textModern:"进退两难，利于勇武之人的坚守。"},
+    {name:"九二", text:"巽在床下，用史巫纷若，吉无咎。", textModern:"谦逊地站在床下，请来众多史祝巫者，吉祥无过。"},
+    {name:"九三", text:"频巽，吝。", textModern:"频频表现得谦逊顺从而失去主见，有遗憾。"},
+    {name:"六四", text:"悔亡，田获三品。", textModern:"悔恨消失，田猎获得三种猎物。"},
+    {name:"九五", text:"贞吉悔亡，无不利。无初有终，先庚三日，后庚三日，吉。", textModern:"守正吉悔恨消，没有不利。开始不顺利但结局好，庚日前后各三天做足准备，吉祥。"},
+    {name:"上九", text:"巽在床下，丧其资斧，贞凶。", textModern:"谦逊到床底下去了，失去了资财和斧头，守正也有凶险。"}
+  ]
+};
+
+// --- 58. 兑 (duì) — 兑上兑下 ---
+HEXAGRAM_DATA[58] = {
+  kingWen:58, nameZh:"兑", namePinyin:"duì",
+  upperTrigram: TRIGRAMS.dui, lowerTrigram: TRIGRAMS.dui,
+  binaryValue: 0b011011,
+  judgment:"亨，利贞。",
+  judgmentModern:"亨通，利于守正。",
+  interpretation:"兑卦象征喜悦、口舌。双兑相叠，两泽相连，互相滋润。得此卦者，心情愉悦，人际关系和谐。但兑也代表口舌，注意说话的分寸，不要因言语惹是非。",
+  lines:[
+    {name:"初九", text:"和兑，吉。", textModern:"和悦待人，吉祥。"},
+    {name:"九二", text:"孚兑，吉，悔亡。", textModern:"诚信喜悦，吉祥，悔恨消失。"},
+    {name:"六三", text:"来兑，凶。", textModern:"前来谄媚取悦，凶险。"},
+    {name:"九四", text:"商兑，未宁，介疾有喜。", textModern:"商量而喜悦，还未安宁，小病将会有喜讯。"},
+    {name:"九五", text:"孚于剥，有厉。", textModern:"诚信于衰败的人或事，有危险。信任要谨慎。"},
+    {name:"上六", text:"引兑。", textModern:"引诱取悦。享受喜悦但要有所节制。"}
+  ]
+};
+
+// --- 59. 涣 (huàn) — 巽上坎下 ---
+HEXAGRAM_DATA[59] = {
+  kingWen:59, nameZh:"涣", namePinyin:"huàn",
+  upperTrigram: TRIGRAMS.xun, lowerTrigram: TRIGRAMS.kan,
+  binaryValue: 0b010011,
+  judgment:"亨。王假有庙，利涉大川，利贞。",
+  judgmentModern:"亨通。君王到宗庙中，利于渡过大河，利于守正。",
+  interpretation:"涣卦象征涣散、离散。上巽为风，下坎为水，风行水上，水波离散。得此卦者，人心可能涣散，需要凝聚人心。也有化解困难、使事情通畅的意思。",
+  lines:[
+    {name:"初六", text:"用拯马壮，吉。", textModern:"用强壮的马去救助，吉祥。"},
+    {name:"九二", text:"涣奔其机，悔亡。", textModern:"涣散时奔向自己的凭依，悔恨消失。"},
+    {name:"六三", text:"涣其躬，无悔。", textModern:"涣散自身，没有悔恨。放下自我。"},
+    {name:"六四", text:"涣其群，元吉。涣有丘，匪夷所思。", textModern:"涣散那些小团体，大吉。涣散后能聚成山丘，非同寻常。"},
+    {name:"九五", text:"涣汗其大号，涣王居，无咎。", textModern:"涣散时发布了重要的号令，王者的居所也涣然一新，没有过错。"},
+    {name:"上九", text:"涣其血，去逖出，无咎。", textModern:"涣散其血光之灾，远离危险，没有过错。"}
+  ]
+};
+
+// --- 60. 节 (jié) — 坎上兑下 ---
+HEXAGRAM_DATA[60] = {
+  kingWen:60, nameZh:"节", namePinyin:"jié",
+  upperTrigram: TRIGRAMS.kan, lowerTrigram: TRIGRAMS.dui,
+  binaryValue: 0b011010,
+  judgment:"亨。苦节不可贞。",
+  judgmentModern:"亨通。但过分的节制不可坚守。",
+  interpretation:"节卦象征节制、节度。上坎为水，下兑为泽，水流入泽中，有一定的容量。得此卦者，凡事要有节制、有分寸。适当的节制是好，但过分的苦节反而不利。",
+  lines:[
+    {name:"初九", text:"不出户庭，无咎。", textModern:"不出家门庭院，没有过错。适时而止。"},
+    {name:"九二", text:"不出门庭，凶。", textModern:"不出大门庭院，凶险。该出不出反而凶。"},
+    {name:"六三", text:"不节若，则嗟若，无咎。", textModern:"不能节制，就会叹息，但最终无过。"},
+    {name:"六四", text:"安节，亨。", textModern:"安于节制，亨通。"},
+    {name:"九五", text:"甘节，吉。往有尚。", textModern:"甘美的节制，吉祥。前往会有嘉奖。"},
+    {name:"上六", text:"苦节，贞凶，悔亡。", textModern:"苦涩的节制，守正也有凶，悔恨消失了。"}
+  ]
+};
+
+// --- 61. 中孚 (zhōng fú) — 巽上兑下 ---
+HEXAGRAM_DATA[61] = {
+  kingWen:61, nameZh:"中孚", namePinyin:"zhōng fú",
+  upperTrigram: TRIGRAMS.xun, lowerTrigram: TRIGRAMS.dui,
+  binaryValue: 0b011011,
+  judgment:"豚鱼吉，利涉大川，利贞。",
+  judgmentModern:"连小猪和鱼都感化了，吉祥，利于渡过大河，利于守正。",
+  interpretation:"中孚卦象征诚信、内心诚信。上巽为风，下兑为泽，风行泽上，无所不至。卦形像蛋卵，外实内虚。得此卦者，以诚信待人，连动物都能感化。诚信是立身之本。",
+  lines:[
+    {name:"初九", text:"虞吉，有他不燕。", textModern:"安心戒备则吉，如果有其他想法就不得安宁了。"},
+    {name:"九二", text:"鸣鹤在阴，其子和之。我有好爵，吾与尔靡之。", textModern:"白鹤在树荫下鸣叫，小鹤也跟着应和。我有美酒，与你共享。"},
+    {name:"六三", text:"得敌，或鼓或罢，或泣或歌。", textModern:"遇到对手，时而擂鼓时而停止，时而哭泣时而歌唱。"},
+    {name:"六四", text:"月几望，马匹亡，无咎。", textModern:"月亮将圆，马匹跑失，没有过错。"},
+    {name:"九五", text:"有孚挛如，无咎。", textModern:"诚信紧密相连，没有过错。"},
+    {name:"上九", text:"翰音登于天，贞凶。", textModern:"飞鸟的声音传到天上，守正也有凶。过分高调反遭祸。"}
+  ]
+};
+
+// --- 62. 小过 (xiǎo guò) — 震上艮下 ---
+HEXAGRAM_DATA[62] = {
+  kingWen:62, nameZh:"小过", namePinyin:"xiǎo guò",
+  upperTrigram: TRIGRAMS.zhen, lowerTrigram: TRIGRAMS.gen,
+  binaryValue: 0b001100,
+  judgment:"亨，利贞。可小事，不可大事。飞鸟遗之音，不宜上，宜下，大吉。",
+  judgmentModern:"亨通，利于守正。可以处理小事，不可做大事。飞鸟留下叫声，不宜向上飞，宜向下落，大吉。",
+  interpretation:"小过卦象征小有过失。上震为雷，下艮为山，雷在山上，稍稍过头。得此卦者，小事可成大事难为，宜低调务实。小错误可以容忍和纠正。",
+  lines:[
+    {name:"初六", text:"飞鸟以凶。", textModern:"飞鸟带来凶险。太高则有灾。"},
+    {name:"六二", text:"过其祖，遇其妣。不及其君，遇其臣。无咎。", textModern:"越过了祖父，遇到了祖母。没赶上君王，遇到了大臣。没有过错。"},
+    {name:"九三", text:"弗过防之，从或戕之，凶。", textModern:"没有过分但要防备，跟随可能被伤害，凶险。"},
+    {name:"九四", text:"无咎，弗过遇之。往厉必戒，勿用永贞。", textModern:"没有过错，不过分而遇到了。前往有危险一定要警惕，不宜永远固守。"},
+    {name:"六五", text:"密云不雨，自我西郊。公弋取彼在穴。", textModern:"阴云密布不下雨，来自西郊。王公用带绳的箭射中了洞穴中的猎物。"},
+    {name:"上六", text:"弗遇过之，飞鸟离之，凶，是谓灾眚。", textModern:"没有相遇反而超过了，飞鸟陷入罗网，凶险，这就是天灾人祸。"}
+  ]
+};
+
+// --- 63. 既济 (jì jì) — 坎上离下 ---
+HEXAGRAM_DATA[63] = {
+  kingWen:63, nameZh:"既济", namePinyin:"jì jì",
+  upperTrigram: TRIGRAMS.kan, lowerTrigram: TRIGRAMS.li,
+  binaryValue: 0b101010,
+  judgment:"亨小，利贞。初吉终乱。",
+  judgmentModern:"小亨通，利于守正。开始吉祥，最终可能会乱。",
+  interpretation:"既济卦象征已经成功、完成。上坎为水，下离为火，水火相交，烹煮食物。这是六十四卦中唯一六爻都当位的卦，表示和谐完美。但完美之后必然走向散乱。得此卦者，已经取得一定成功，但不可松懈，要居安思危。",
+  lines:[
+    {name:"初九", text:"曳其轮，濡其尾，无咎。", textModern:"拖动车轮，尾巴湿了，没有过错。"},
+    {name:"六二", text:"妇丧其茀，勿逐，七日得。", textModern:"妇人丢失了头饰，不用去追寻，七天后会失而复得。"},
+    {name:"九三", text:"高宗伐鬼方，三年克之，小人勿用。", textModern:"高宗征伐鬼方，三年才攻克，不可任用小人。"},
+    {name:"六四", text:"繻有衣袽，终日戒。", textModern:"有破衣和败絮，终日保持戒备。"},
+    {name:"九五", text:"东邻杀牛，不如西邻之禴祭，实受其福。", textModern:"东边的邻居杀牛祭祀，不如西边邻居简单的薄祭，实实在在地受到了福气。"},
+    {name:"上六", text:"濡其首，厉。", textModern:"把头都弄湿了，危险。得意忘形。"}
+  ]
+};
+
+// --- 64. 未济 (wèi jì) — 离上坎下 ---
+HEXAGRAM_DATA[64] = {
+  kingWen:64, nameZh:"未济", namePinyin:"wèi jì",
+  upperTrigram: TRIGRAMS.li, lowerTrigram: TRIGRAMS.kan,
+  binaryValue: 0b010101,
+  judgment:"亨。小狐汔济，濡其尾，无攸利。",
+  judgmentModern:"亨通。小狐狸快要过河了，尾巴却湿了，没有好处。",
+  interpretation:"未济卦象征尚未完成。上离为火，下坎为水，火在上面水在下面，水火不相交，事情没有完成。这是六十四卦的最后一卦，意味深长。革命尚未成功，同志仍需努力。得此卦者，事情还没完成，需要继续努力，但曙光在前。",
+  lines:[
+    {name:"初六", text:"濡其尾，吝。", textModern:"尾巴湿了，有遗憾。"},
+    {name:"九二", text:"曳其轮，贞吉。", textModern:"拖住车轮，守正则吉。"},
+    {name:"六三", text:"未济，征凶，利涉大川。", textModern:"尚未完成，出征凶险，但利于渡过大河。矛盾中前行。"},
+    {name:"九四", text:"贞吉悔亡，震用伐鬼方，三年有赏于大国。", textModern:"守正吉悔恨消，以雷霆之势征伐鬼方，三年得到大国的赏赐。"},
+    {name:"六五", text:"贞吉无悔，君子之光，有孚，吉。", textModern:"守正吉没有悔恨，君子的光辉，有诚信，吉祥。"},
+    {name:"上九", text:"有孚于饮酒，无咎。濡其首，有孚失是。", textModern:"放心地饮酒，没有过错。但如果把头都浸湿了，有诚信也失了分寸。"}
+  ]
+};
+
+// ============================================================
+// AUTO-COMPUTE BINARY VALUES from trigrams (fixes any manual errors)
+// Encoding: upper trigram (bits 3-5) + lower trigram (bits 0-2)
+// ============================================================
+for (let i = 1; i <= 64; i++) {
+  if (HEXAGRAM_DATA[i]) {
+    HEXAGRAM_DATA[i].binaryValue = HEXAGRAM_DATA[i].upperTrigram.value * 8 + HEXAGRAM_DATA[i].lowerTrigram.value;
+  }
+}
+
+// ============================================================
+// BUILD LOOKUP TABLE: binary value → King Wen number
+// ============================================================
+const BINARY_TO_KINGWEN = new Map();
+for (let i = 1; i <= 64; i++) {
+  if (HEXAGRAM_DATA[i]) {
+    BINARY_TO_KINGWEN.set(HEXAGRAM_DATA[i].binaryValue, i);
+  }
+}
+
+// ============================================================
+// SECTION: CASTING ENGINE — 三钱法起卦
+// ============================================================
+
+/**
+ * Cast one line by simulating three coins.
+ * Each coin: heads=3 (yang), tails=2 (yin).
+ * Returns 6 (老阴), 7 (少阳), 8 (少阴), or 9 (老阳).
+ */
+function castSingleLine() {
+  let sum = 0;
+  for (let i = 0; i < 3; i++) {
+    sum += Math.random() < 0.5 ? 3 : 2;
+  }
+  return sum; // 6, 7, 8, or 9
+}
+
+/**
+ * Cast all 6 lines (bottom to top).
+ * Returns array of 6 values: index 0 = bottom line (初爻), index 5 = top line (上爻).
+ */
+function castHexagram() {
+  const lines = [];
+  for (let i = 0; i < 6; i++) {
+    lines.push(castSingleLine());
+  }
+  return lines;
+}
+
+/**
+ * Get the classical name for a line (e.g., "初九", "六三", "上六").
+ * pos: 0-based index (0=bottom/初爻, 5=top/上爻)
+ * value: 6/7/8/9
+ */
+function getLineName(pos, value) {
+  const isYang = (value === 7 || value === 9);
+  const yinYang = isYang ? "九" : "六";
+  if (pos === 0) return "初" + yinYang;
+  if (pos === 5) return "上" + yinYang;
+  return yinYang + ["二", "三", "四", "五"][pos - 1];
+}
+
+/**
+ * Get a description of the line type.
+ */
+function getLineDescription(value) {
+  switch (value) {
+    case 6: return "老阴 ⚋ (变爻·阴变阳)";
+    case 7: return "少阳 ⚊ (不变)";
+    case 8: return "少阴 ⚋ (不变)";
+    case 9: return "老阳 ⚊ (变爻·阳变阴)";
+  }
+  return "";
+}
+
+/**
+ * Check if a line is yang (7 or 9).
+ */
+function isYangLine(value) {
+  return value === 7 || value === 9;
+}
+
+/**
+ * Check if a line is changing (6 or 9).
+ */
+function isChangingLine(value) {
+  return value === 6 || value === 9;
+}
+
+// ============================================================
+// SECTION: INTERPRETATION ENGINE — 卦象查找、变爻、卦变
+// ============================================================
+
+/**
+ * Convert 6 line values to a 6-bit binary value.
+ * Yang (7,9) → 1, Yin (6,8) → 0.
+ * Bit 0 = line 0 (bottom 初爻), Bit 5 = line 5 (top 上爻).
+ */
+function linesToBinary(lines) {
+  let binary = 0;
+  for (let i = 0; i < 6; i++) {
+    if (isYangLine(lines[i])) {
+      binary |= (1 << i);
+    }
+  }
+  return binary;
+}
+
+/**
+ * Look up hexagram data from line values.
+ */
+function lookupHexagram(lines) {
+  const binaryValue = linesToBinary(lines);
+  const kingWen = BINARY_TO_KINGWEN.get(binaryValue);
+  return HEXAGRAM_DATA[kingWen] || null;
+}
+
+/**
+ * Find indices of changing lines (values 6 or 9).
+ * Returns array of 0-based indices, bottom-to-top order.
+ */
+function findChangingLines(lines) {
+  const changing = [];
+  for (let i = 0; i < 6; i++) {
+    if (isChangingLine(lines[i])) {
+      changing.push(i);
+    }
+  }
+  return changing;
+}
+
+/**
+ * Apply line transformation: old yin(6)→young yang(7), old yang(9)→young yin(8).
+ * Returns new lines array representing the transformed hexagram.
+ */
+function transformLines(lines) {
+  return lines.map(v => {
+    if (v === 6) return 7;
+    if (v === 9) return 8;
+    return v;
+  });
+}
+
+/**
+ * Get the transformed (changed) hexagram data.
+ * Returns { lines, hexagram } or null if no changing lines.
+ */
+function getTransformedHexagram(lines) {
+  const changingLines = findChangingLines(lines);
+  if (changingLines.length === 0) return null;
+  const transformed = transformLines(lines);
+  const hex = lookupHexagram(transformed);
+  return { lines: transformed, hexagram: hex };
+}
+
+/**
+ * Full interpretation of a casting result.
+ * Returns a rich result object.
+ */
+function interpretResult(question, lines) {
+  const primaryHex = lookupHexagram(lines);
+  const changingLines = findChangingLines(lines);
+  const transformed = getTransformedHexagram(lines);
+
+  return {
+    question: question || "",
+    lines: lines,
+    primaryHex: primaryHex,
+    changingLines: changingLines,
+    changingLineNames: changingLines.map(i => getLineName(i, lines[i])),
+    transformedHex: transformed ? transformed.hexagram : null,
+    hasChanges: changingLines.length > 0,
+    timestamp: Date.now()
+  };
+}
+
+// ============================================================
+// SECTION: STORAGE ENGINE — localStorage 历史记录管理
+// ============================================================
+
+const STORAGE_KEY = "iching-history";
+const MAX_HISTORY = 100;
+
+function loadHistory() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveReading(result) {
+  const entry = {
+    id: String(result.timestamp),
+    timestamp: result.timestamp,
+    dateStr: formatDate(result.timestamp),
+    question: result.question,
+    lines: result.lines,
+    primaryKingWen: result.primaryHex ? result.primaryHex.kingWen : 0,
+    primaryName: result.primaryHex ? result.primaryHex.nameZh : "",
+    transformedKingWen: result.transformedHex ? result.transformedHex.kingWen : null,
+    transformedName: result.transformedHex ? result.transformedHex.nameZh : null,
+    changingLineCount: result.changingLines.length
+  };
+
+  const history = loadHistory();
+  history.unshift(entry);
+  if (history.length > MAX_HISTORY) {
+    history.length = MAX_HISTORY;
+  }
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+  return entry;
+}
+
+function deleteReading(id) {
+  const history = loadHistory().filter(e => e.id !== id);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+}
+
+function clearAllHistory() {
+  localStorage.removeItem(STORAGE_KEY);
+}
+
+function formatDate(ts) {
+  const d = new Date(ts);
+  const pad = n => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+// ============================================================
+// SECTION: RENDERER — DOM 渲染组件
+// ============================================================
+
+// --- Hexagram Line Drawing ---
+
+/**
+ * Render 6 hexagram lines as HTML.
+ * lines: array of 6 values (6/7/8/9), index 0 = bottom.
+ * changingIndices: array of indices that are changing lines.
+ */
+function renderHexagramLines(lines, changingIndices) {
+  let html = '<div class="hexagram-container">';
+  // Render top to bottom (上爻 first visually)
+  for (let i = 5; i >= 0; i--) {
+    const value = lines[i];
+    const isYang = isYangLine(value);
+    const isChanging = changingIndices.includes(i);
+    const lineName = getLineName(i, value);
+
+    let lineClass = "hex-line";
+    if (isYang) {
+      lineClass += " hex-line-yang";
+    } else {
+      lineClass += " hex-line-yin";
+    }
+    if (isChanging) {
+      lineClass += " hex-line-changing";
+    }
+
+    html += '<div class="hex-line-row">';
+    html += `<span class="hex-line-label">${lineName}</span>`;
+    html += `<div class="${lineClass}">`;
+    if (!isYang) {
+      // Yin line: two segments with gap
+      html += '<span class="yin-segment"></span>';
+      html += '<span class="yin-segment"></span>';
+    }
+    html += '</div>';
+    if (isChanging) {
+      html += '<span class="changing-dot">●</span>';
+    }
+    html += '</div>';
+  }
+  // Label below: 初 (bottom) at bottom, 上 (top) at top
+  html += '</div>';
+  return html;
+}
+
+/**
+ * Render a small hexagram icon for cards/lists.
+ */
+function renderHexagramIcon(kingWen) {
+  const code = 0x4DC0 + kingWen - 1;
+  return String.fromCodePoint(code);
+}
+
+/**
+ * Render a small hexagram with CSS lines (compact version for cards).
+ */
+function renderCompactHexagram(lines, changingIndices) {
+  let html = '<div class="hex-compact">';
+  for (let i = 5; i >= 0; i--) {
+    const isYang = isYangLine(lines[i]);
+    const isChanging = changingIndices.includes(i);
+    let cls = "hc-line";
+    cls += isYang ? " hc-yang" : " hc-yin";
+    if (isChanging) cls += " hc-changing";
+    html += `<div class="${cls}"></div>`;
+  }
+  html += '</div>';
+  return html;
+}
+
+// --- Card Rendering ---
+
+/**
+ * Render a hexagram card for the browse grid.
+ */
+function renderHexagramCard(hex) {
+  const symbol = renderHexagramIcon(hex.kingWen);
+  return `
+    <div class="hex-card" data-kingwen="${hex.kingWen}" onclick="showHexagramDetail(${hex.kingWen})">
+      <div class="hex-card-number">${hex.kingWen}</div>
+      <div class="hex-card-symbol">${symbol}</div>
+      <div class="hex-card-name">${hex.nameZh}</div>
+      <div class="hex-card-pinyin">${hex.namePinyin}</div>
+    </div>
+  `;
+}
+
+// --- Result Rendering ---
+
+/**
+ * Render the full result view.
+ */
+function renderResultView(result) {
+  const p = result.primaryHex;
+  const lines = result.lines;
+  const changingIndices = result.changingLines;
+
+  if (!p) {
+    return '<div class="error">未能找到对应卦象，请重试。</div>';
+  }
+
+  let html = "";
+
+  // Question
+  if (result.question) {
+    html += `<div class="result-question">问：${escapeHtml(result.question)}</div>`;
+  }
+
+  // Hexagram visual
+  html += '<div class="result-hex-visual">';
+  html += renderHexagramLines(lines, changingIndices);
+  html += '</div>';
+
+  // Primary hexagram info
+  html += '<div class="result-primary">';
+  html += `<div class="result-hex-title">本卦：${p.nameZh} (${p.namePinyin})</div>`;
+  html += `<div class="result-hex-symbol">${renderHexagramIcon(p.kingWen)}</div>`;
+  html += `<div class="result-trigrams">${p.upperTrigram.symbol}${p.upperTrigram.name}上 · ${p.lowerTrigram.symbol}${p.lowerTrigram.name}下</div>`;
+  html += '</div>';
+
+  // Judgment
+  html += '<div class="result-section">';
+  html += '<div class="section-title">卦辞</div>';
+  html += `<div class="classical-text">${p.judgment}</div>`;
+  html += `<div class="modern-text">${p.judgmentModern}</div>`;
+  html += '</div>';
+
+  // Interpretation
+  html += '<div class="result-section">';
+  html += '<div class="section-title">解读</div>';
+  html += `<div class="interpretation-text">${p.interpretation}</div>`;
+  html += '</div>';
+
+  // Changing lines
+  if (changingIndices.length > 0) {
+    html += '<div class="result-section changing-section">';
+    html += `<div class="section-title">变爻 (${changingIndices.length}个)</div>`;
+
+    for (const idx of changingIndices) {
+      const ln = p.lines[idx];
+      const lineName = getLineName(idx, lines[idx]);
+      html += '<div class="line-detail">';
+      html += `<div class="line-name">${lineName} <span class="changing-tag">变爻</span></div>`;
+      html += `<div class="classical-text">${ln.text}</div>`;
+      html += `<div class="modern-text">${ln.textModern}</div>`;
+      html += '</div>';
+    }
+    html += '</div>';
+
+    // Transformed hexagram
+    if (result.transformedHex) {
+      const t = result.transformedHex;
+      html += '<div class="result-section transformed-section">';
+      html += '<div class="section-title">变卦（之卦）</div>';
+      html += `<div class="result-hex-title">${t.nameZh} (${t.namePinyin}) ${renderHexagramIcon(t.kingWen)}</div>`;
+      html += `<div class="classical-text">${t.judgment}</div>`;
+      html += `<div class="modern-text">${t.judgmentModern}</div>`;
+      html += '</div>';
+    }
+  } else {
+    html += '<div class="result-section">';
+    html += '<div class="section-title">变爻</div>';
+    html += '<div class="modern-text">本卦无变爻，以本卦卦辞为主参考。</div>';
+    html += '</div>';
+  }
+
+  return html;
+}
+
+// --- History Rendering ---
+
+function renderHistoryList(history) {
+  if (history.length === 0) {
+    return '<div class="empty-state"><div class="empty-icon">📜</div><div>暂无记录</div><div class="empty-hint">去起一卦吧</div></div>';
+  }
+
+  let html = "";
+  for (const entry of history) {
+    const pSymbol = renderHexagramIcon(entry.primaryKingWen);
+    const hasChange = entry.transformedKingWen !== null;
+    const tSymbol = hasChange ? renderHexagramIcon(entry.transformedKingWen) : "";
+
+    html += '<div class="history-card" data-id="' + entry.id + '">';
+    html += `<div class="history-date">${entry.dateStr}</div>`;
+    html += `<div class="history-question">${escapeHtml(entry.question) || "(无问题)"}</div>`;
+    html += '<div class="history-hex-row">';
+    html += `<span>${pSymbol} ${entry.primaryName}</span>`;
+    if (hasChange) {
+      html += `<span class="history-arrow">→</span>`;
+      html += `<span>${tSymbol} ${entry.transformedName}</span>`;
+      html += `<span class="history-change-count">${entry.changingLineCount}变爻</span>`;
+    } else {
+      html += '<span class="history-no-change">无变爻</span>';
+    }
+    html += '</div>';
+    html += '<div class="history-actions">';
+    html += `<button class="btn-small" onclick="viewHistoryEntry('${entry.id}')">查看</button>`;
+    html += `<button class="btn-small btn-danger" onclick="deleteHistoryEntry('${entry.id}')">删除</button>`;
+    html += '</div>';
+    html += '</div>';
+  }
+  return html;
+}
+
+// --- Utility ---
+
+function escapeHtml(str) {
+  const div = document.createElement("div");
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function showHexagramDetail(kingWen) {
+  const hex = HEXAGRAM_DATA[kingWen];
+  if (!hex) return;
+
+  let detailHtml = '<div class="detail-modal-content">';
+  detailHtml += `<button class="detail-close" onclick="closeDetailModal()">✕</button>`;
+  detailHtml += `<h2>${hex.kingWen}. ${hex.nameZh} (${hex.namePinyin})</h2>`;
+  detailHtml += `<div class="detail-symbol">${renderHexagramIcon(hex.kingWen)}</div>`;
+  detailHtml += `<div class="detail-trigrams">${hex.upperTrigram.symbol}${hex.upperTrigram.name}上 · ${hex.lowerTrigram.symbol}${hex.lowerTrigram.name}下</div>`;
+
+  detailHtml += '<div class="detail-section"><h3>卦辞</h3>';
+  detailHtml += `<div class="classical-text">${hex.judgment}</div>`;
+  detailHtml += `<div class="modern-text">${hex.judgmentModern}</div></div>`;
+
+  detailHtml += '<div class="detail-section"><h3>解读</h3>';
+  detailHtml += `<div class="interpretation-text">${hex.interpretation}</div></div>`;
+
+  detailHtml += '<div class="detail-section"><h3>六爻爻辞</h3>';
+  for (const ln of hex.lines) {
+    detailHtml += '<div class="line-detail">';
+    detailHtml += `<div class="line-name">${ln.name}</div>`;
+    detailHtml += `<div class="classical-text">${ln.text}</div>`;
+    detailHtml += `<div class="modern-text">${ln.textModern}</div>`;
+    detailHtml += '</div>';
+  }
+  detailHtml += '</div>';
+  detailHtml += '</div>';
+
+  const modal = document.getElementById("detail-modal");
+  const body = document.getElementById("detail-modal-body");
+  body.innerHTML = detailHtml;
+  modal.classList.add("active");
+}
+
+function closeDetailModal() {
+  document.getElementById("detail-modal").classList.remove("active");
+}
+
+function viewHistoryEntry(id) {
+  const history = loadHistory();
+  const entry = history.find(e => e.id === id);
+  if (!entry) return;
+
+  // Reconstruct result and show it
+  const result = interpretResult(entry.question, entry.lines);
+  switchToView("result");
+  document.getElementById("result-content").innerHTML = renderResultView(result);
+  document.getElementById("result-actions").style.display = "flex";
+  // Store current result for save
+  window._currentResult = result;
+}
+
+function deleteHistoryEntry(id) {
+  if (confirm("确定要删除这条记录吗？")) {
+    deleteReading(id);
+    switchToView("history");
+    document.getElementById("history-list").innerHTML = renderHistoryList(loadHistory());
+  }
+}
+
+// ============================================================
+// SECTION: VIEW CONTROLLERS — 视图控制器
+// ============================================================
+
+let currentView = "cast";
+let castState = "idle"; // idle | casting | waiting | complete
+let castLines = [];
+let castCurrentIndex = 0;
+let coinAnimationTimeout = null;
+
+// --- View Navigation ---
+
+function switchToView(viewName) {
+  currentView = viewName;
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+  document.getElementById("view-" + viewName).classList.add("active");
+
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  const tabBtn = document.querySelector(`.tab-btn[data-view="${viewName}"]`);
+  if (tabBtn) tabBtn.classList.add("active");
+
+  // Refresh dynamic views
+  if (viewName === "history") {
+    document.getElementById("history-list").innerHTML = renderHistoryList(loadHistory());
+  }
+  if (viewName === "browse") {
+    document.getElementById("browse-grid").innerHTML = HEXAGRAM_DATA.filter(Boolean).map(renderHexagramCard).join("");
+  }
+}
+
+// --- Cast View ---
+
+function startCasting() {
+  castLines = [];
+  castCurrentIndex = 0;
+  castState = "casting";
+  document.getElementById("cast-progress").textContent = "已掷: 0/6";
+  document.getElementById("cast-hex-preview").innerHTML = '<div class="hex-placeholder">默想问题，开始掷爻...</div>';
+  document.getElementById("cast-question").disabled = true;
+  document.getElementById("btn-manual").style.display = "none";
+  document.getElementById("btn-auto").style.display = "none";
+  document.getElementById("btn-manual-cast").style.display = "block";
+  document.getElementById("btn-reset-cast").style.display = "inline-block";
+
+  castNextLine();
+}
+
+function castNextLine() {
+  if (castCurrentIndex >= 6) {
+    finishCasting();
+    return;
+  }
+
+  castState = "casting";
+  document.getElementById("btn-manual-cast").disabled = true;
+
+  // Animate coins
+  animateCoins(() => {
+    const value = castSingleLine();
+    castLines.push(value);
+    castCurrentIndex++;
+
+    // Update progress
+    document.getElementById("cast-progress").textContent = `已掷: ${castCurrentIndex}/6`;
+
+    // Update hexagram preview
+    updateCastPreview();
+
+    if (castCurrentIndex >= 6) {
+      finishCasting();
+    } else {
+      castState = "waiting";
+      document.getElementById("btn-manual-cast").disabled = false;
+    }
+  });
+}
+
+function animateCoins(callback) {
+  const container = document.getElementById("coin-animation");
+  container.innerHTML = `
+    <div class="coins-anim">
+      <div class="coin coin1">🪙</div>
+      <div class="coin coin2">🪙</div>
+      <div class="coin coin3">🪙</div>
+    </div>
+  `;
+  // CSS animation handles the visual, callback after delay
+  coinAnimationTimeout = setTimeout(() => {
+    const coins = container.querySelectorAll(".coin");
+    coins.forEach(c => {
+      c.textContent = Math.random() < 0.5 ? "⚊" : "⚋";
+      c.classList.add("coin-result");
+    });
+    setTimeout(callback, 500);
+  }, 1200);
+}
+
+function updateCastPreview() {
+  const preview = document.getElementById("cast-hex-preview");
+  let html = '<div class="hex-container">';
+  // Show lines built so far, plus placeholder for remaining
+  for (let i = 5; i >= 0; i--) {
+    html += '<div class="hex-line-row preview-row">';
+    if (i < castLines.length) {
+      const v = castLines[i];
+      const isYang = isYangLine(v);
+      const isCh = isChangingLine(v);
+      let cls = "hex-line " + (isYang ? "hex-line-yang" : "hex-line-yin");
+      if (isCh) cls += " hex-line-changing";
+      html += `<span class="hex-line-label">${getLineName(i, v)}</span>`;
+      html += `<div class="${cls}">`;
+      if (!isYang) {
+        html += '<span class="yin-segment"></span><span class="yin-segment"></span>';
+      }
+      html += '</div>';
+      if (isCh) html += '<span class="changing-dot">●</span>';
+    } else {
+      html += '<span class="hex-line-label" style="color:#ccc">' + getLineName(i, 7) + '</span>';
+      html += '<div class="hex-line hex-line-placeholder"></div>';
+    }
+    html += '</div>';
+  }
+  html += '</div>';
+  preview.innerHTML = html;
+}
+
+function finishCasting() {
+  castState = "complete";
+  document.getElementById("btn-manual-cast").style.display = "none";
+  document.getElementById("btn-manual").style.display = "none";
+  document.getElementById("btn-auto").style.display = "none";
+
+  const question = document.getElementById("cast-question").value.trim();
+  const result = interpretResult(question, castLines);
+  window._currentResult = result;
+
+  // Show result
+  document.getElementById("result-content").innerHTML = renderResultView(result);
+  document.getElementById("result-actions").style.display = "flex";
+  switchToView("result");
+}
+
+function autoCast() {
+  castLines = [];
+  for (let i = 0; i < 6; i++) {
+    castLines.push(castSingleLine());
+  }
+  castCurrentIndex = 6;
+  castState = "complete";
+
+  const question = document.getElementById("cast-question").value.trim();
+  const result = interpretResult(question, castLines);
+  window._currentResult = result;
+
+  document.getElementById("cast-progress").textContent = "已掷: 6/6";
+  updateCastPreviewAuto();
+  document.getElementById("result-content").innerHTML = renderResultView(result);
+  document.getElementById("result-actions").style.display = "flex";
+  switchToView("result");
+}
+
+function updateCastPreviewAuto() {
+  const preview = document.getElementById("cast-hex-preview");
+  const changing = findChangingLines(castLines);
+  preview.innerHTML = renderHexagramLines(castLines, changing);
+}
+
+function resetCast() {
+  castLines = [];
+  castCurrentIndex = 0;
+  castState = "idle";
+  document.getElementById("cast-progress").textContent = "";
+  document.getElementById("cast-hex-preview").innerHTML = '<div class="hex-placeholder">默想问题，开始掷爻...</div>';
+  document.getElementById("cast-question").disabled = false;
+  document.getElementById("btn-manual").style.display = "";
+  document.getElementById("btn-auto").style.display = "";
+  document.getElementById("btn-manual-cast").style.display = "none";
+  document.getElementById("btn-reset-cast").style.display = "none";
+  document.getElementById("coin-animation").innerHTML = "";
+  if (coinAnimationTimeout) clearTimeout(coinAnimationTimeout);
+}
+
+function saveResult() {
+  if (window._currentResult) {
+    saveReading(window._currentResult);
+    alert("已保存记录");
+  }
+}
+
+function castAgain() {
+  resetCast();
+  switchToView("cast");
+}
+
+// --- Browse View ---
+
+function filterHexagrams(query) {
+  const q = query.toLowerCase().trim();
+  const cards = document.querySelectorAll(".hex-card");
+  cards.forEach(card => {
+    const kingWen = parseInt(card.dataset.kingwen);
+    const hex = HEXAGRAM_DATA[kingWen];
+    if (!hex) { card.style.display = "none"; return; }
+    const searchText = [hex.kingWen, hex.nameZh, hex.namePinyin, hex.upperTrigram.name, hex.lowerTrigram.name, hex.judgment, hex.judgmentModern].join(" ").toLowerCase();
+    card.style.display = searchText.includes(q) ? "" : "none";
+  });
+}
+
+// --- Init ---
+
+function initApp() {
+  // Set up tab navigation
+  document.querySelectorAll(".tab-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      switchToView(btn.dataset.view);
+    });
+  });
+
+  // Set up cast buttons
+  document.getElementById("btn-manual").addEventListener("click", startCasting);
+  document.getElementById("btn-manual-cast").addEventListener("click", castNextLine);
+  document.getElementById("btn-auto").addEventListener("click", autoCast);
+  document.getElementById("btn-reset-cast").addEventListener("click", resetCast);
+
+  // Result buttons
+  document.getElementById("btn-save").addEventListener("click", saveResult);
+  document.getElementById("btn-cast-again").addEventListener("click", castAgain);
+
+  // History
+  document.getElementById("btn-clear-history").addEventListener("click", () => {
+    if (confirm("确定要清空所有历史记录吗？此操作不可恢复。")) {
+      clearAllHistory();
+      switchToView("history");
+    }
+  });
+
+  // Detail modal
+  document.getElementById("detail-modal").addEventListener("click", function(e) {
+    if (e.target === this) closeDetailModal();
+  });
+
+  // Search
+  document.getElementById("browse-search").addEventListener("input", function() {
+    filterHexagrams(this.value);
+  });
+
+  // Initialize browse grid
+  document.getElementById("browse-grid").innerHTML = HEXAGRAM_DATA.filter(Boolean).map(renderHexagramCard).join("");
+
+  // Show initial view
+  switchToView("cast");
+}
+
+// --- Service Worker Registration ---
+if ("serviceWorker" in navigator) {
+  // Inline SW registration handled in the combined HTML
+}
+
+
+// ============================================================
+// SECTION: APP INITIALIZATION
+// ============================================================
+document.addEventListener("DOMContentLoaded", initApp);
+
+// Register Service Worker for PWA (offline support)
+if ("serviceWorker" in navigator) {
+  const swCode = "self.addEventListener('install',e=>{self.skipWaiting()});" +
+    "self.addEventListener('activate',e=>{e.waitUntil(clients.claim())});" +
+    "self.addEventListener('fetch',e=>{" +
+      "e.respondWith(" +
+        "caches.match(e.request).then(r=>r||fetch(e.request).then(resp=>{" +
+          "const clone=resp.clone();" +
+          "caches.open('iching-v1').then(c=>c.put(e.request,clone));" +
+          "return resp;" +
+        "}))" +
+      ")" +
+    "})";
+  const blob = new Blob([swCode], {type:"application/javascript"});
+  navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(()=>{});
+}
+
+</script>
+
+</body>
+</html>
